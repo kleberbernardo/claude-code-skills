@@ -56,16 +56,16 @@ Cada issue inclui: título, severidade, confiança, evidência (com secrets masc
 
 ---
 
-## Skill complementar
+## Corrigir issues encontrados
 
-**`/security-fix`** — corrige os problemas encontrados, pedindo confirmação antes de cada alteração.
+A mesma skill também corrige, pedindo confirmação antes de cada alteração:
 
 ```bash
-/security-fix critical       # corrigir apenas críticos
-/security-fix high           # críticos e altos
-/security-fix all            # todos os issues
-/security-fix CRIT-001       # issue específico
-/security-fix critical --dry-run  # visualizar correções sem aplicar
+/security-audit fix critical          # corrigir apenas críticos
+/security-audit fix high              # críticos e altos
+/security-audit fix all               # todos os issues
+/security-audit fix CRIT-001          # issue específico
+/security-audit fix critical --dry-run  # visualizar sem aplicar
 ```
 
 ---
