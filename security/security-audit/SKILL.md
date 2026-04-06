@@ -1,11 +1,11 @@
 ---
 name: security-audit
-description: Auditoria de segurança completa nível enterprise — AppSec, Cloud Security, DevSecOps, Infra Security e Secure Coding. Detecta riscos do básico ao avançado, incluindo problemas comuns em vibe coding e código gerado por IA.
-argument-hint: "[quick|deep|auth|secrets|infra|data|remediation] [caminho-opcional]"
-allowed-tools: Read, Glob, Grep, Bash, WebSearch, mcp__context7__query-docs, mcp__context7__resolve-library-id
+description: Auditoria e correção de segurança nível enterprise — AppSec, Cloud Security, DevSecOps, Infra Security. Detecta e corrige riscos do básico ao avançado, incluindo vibe coding e código gerado por IA.
+argument-hint: "[quick|deep|auth|secrets|infra|data|remediation] | [fix critical|fix high|fix all|fix ISSUE-ID] [--dry-run]"
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebSearch, mcp__context7__query-docs, mcp__context7__resolve-library-id
 ---
 
-# Security Audit Skill
+# Security Audit & Fix Skill
 
 Você é um time completo de segurança atuando em conjunto:
 
@@ -21,9 +21,11 @@ Você é um time completo de segurança atuando em conjunto:
 
 ## Modos de Execução
 
-| Modo | Descrição |
-|------|-----------|
-| `quick` | Scan rápido: secrets, credenciais, arquivos sensíveis, problemas críticos óbvios |
+### Auditoria
+
+| Argumento | Descrição |
+|-----------|-----------|
+| `quick` | Scan rápido: secrets, credenciais, arquivos sensíveis, críticos óbvios |
 | `deep` | Auditoria completa — todos os 16 passos do fluxo |
 | `auth` | Foco em autenticação, autorização, JWT, OAuth, MFA |
 | `secrets` | Foco em secrets leak, credenciais, .env, tokens |
@@ -32,6 +34,102 @@ Você é um time completo de segurança atuando em conjunto:
 | `remediation` | Analisa relatório existente e prioriza correções |
 
 Se nenhum modo for especificado, usar `deep`.
+
+### Correção (Fix)
+
+| Argumento | Comportamento |
+|-----------|--------------|
+| `fix [issue-id]` | Corrigir issue específico (ex: `fix CRIT-001`) |
+| `fix all` | Corrigir todos os issues encontrados |
+| `fix critical` | Apenas issues críticos |
+| `fix high` | Issues críticos e altos |
+| `fix critical --dry-run` | Mostrar correções sem aplicar |
+
+---
+
+## Modo Fix — Princípios Invioláveis
+
+1. **Sempre pedir confirmação** antes de modificar qualquer arquivo
+2. **Mostrar o diff** antes de aplicar
+3. **Uma correção por vez** — não modificar múltiplos arquivos sem confirmação de cada um
+4. **Não introduzir novos bugs** — entender o código antes de modificar
+5. **Documentar cada mudança** com comentário breve
+
+### Fluxo Obrigatório para Cada Correção
+
+```
+1. Ler o arquivo afetado
+2. Entender o contexto completo (não apenas a linha vulnerável)
+3. Planejar a correção
+4. Mostrar o before/after ao usuário
+5. PARAR e pedir confirmação:
+   "Posso aplicar essa correção em [arquivo:linha]? (s/n)"
+6. Aguardar confirmação
+7. Aplicar apenas se confirmado
+8. Verificar que não quebrou funcionalidade adjacente
+```
+
+### O que Corrigir Automaticamente (com confirmação)
+
+✅ **Safe to Fix:**
+- Adicionar `{ algorithms: ['HS256'] }` em jwt.verify
+- Adicionar `httpOnly: true, secure: true` em cookies
+- Adicionar `path.basename()` em path.join
+- Adicionar ownership check em query (quando padrão é claro)
+- Mover secret hardcoded para `process.env.VARIABLE_NAME`
+- Adicionar `.gitignore` entries
+- Adicionar rate limiter a endpoints
+
+⚠️ **Requer Revisão Cuidadosa:**
+- Mudanças em lógica de autorização
+- Migrações de algoritmo de hashing (dados existentes)
+- Mudanças em schema de banco
+- Alterações em fluxo de autenticação
+
+❌ **NÃO Corrigir Automaticamente:**
+- Rotação de secrets (requer acesso externo ao código)
+- Mudanças de arquitetura significativas
+- Correções que requerem migração de dados
+
+### Formato de Apresentação de Correção
+
+```
+## Correção: [ISSUE-ID] — [Título]
+
+**Arquivo:** src/routes/auth.ts:47
+**Severidade:** Critical
+**Risco atual:** JWT sem verificação de algoritmo → algorithm confusion
+
+**Antes:**
+const payload = jwt.verify(token, JWT_SECRET)
+
+**Depois:**
+const payload = jwt.verify(token, JWT_SECRET, { algorithms: ['HS256'] })
+
+**Por que:** Especificar o algoritmo previne ataques de algorithm confusion
+onde um atacante usa chave pública como HMAC secret.
+
+**Posso aplicar essa correção? (s/n)**
+```
+
+### Sumário Após Todas as Correções
+
+```markdown
+# Security Fix Summary
+
+## Aplicadas
+- [x] CRIT-001: JWT algorithm fix (auth.ts:47)
+- [x] HIGH-002: Rate limiting em /api/auth/login
+
+## Pendentes (requerem ação manual)
+- [ ] CRIT-002: Rotação da Stripe key (ação externa)
+- [ ] HIGH-001: IDOR em /api/documents — mudança de lógica de negócio
+
+## Próximos Passos
+1. Rodar testes após as correções
+2. Fazer nova auditoria: `/security-audit quick`
+3. Revisar PRs antes de merge
+```
 
 ---
 
@@ -136,7 +234,7 @@ Se nenhum modo for especificado, usar `deep`.
 
 ---
 
-## Fluxo de Execução
+## Fluxo de Execução (Modo Auditoria)
 
 Consulte `core/audit-flow.md` para o fluxo detalhado de 16 passos. Resumo:
 
@@ -159,7 +257,7 @@ Consulte `core/audit-flow.md` para o fluxo detalhado de 16 passos. Resumo:
 
 ---
 
-## Formato de Saída Obrigatório
+## Formato de Saída Obrigatório (Modo Auditoria)
 
 Sempre retornar relatório seguindo `reports/report-template.md`:
 
@@ -194,7 +292,7 @@ Para cada issue:
 2. **Nunca expor secret completo** — mascarar: `sk-***...***abc`
 3. **Se encontrar secret → recomendar rotação imediata** como Critical
 4. **Separar sempre**: risco confirmado (Evidence encontrada) vs suspeita (padrão sugestivo)
-5. **Nunca modificar código automaticamente** — apenas recomendar
+5. **Nunca modificar código sem confirmação** — sempre mostrar diff e aguardar aprovação
 6. **Ser extremamente rigoroso com produção** — prefira falso positivo a falso negativo
 7. **Priorizar por impacto real e explorabilidade**, não apenas existência do risco
 
@@ -202,11 +300,16 @@ Para cada issue:
 
 ## Início da Execução
 
-Ao ser invocada, esta skill deve:
-
+**Se modo for auditoria (quick/deep/auth/secrets/infra/data/remediation):**
 1. Ler `core/audit-flow.md` para o fluxo detalhado
 2. Ler `core/attack-surface.md` para mapeamento inicial
 3. Ler `reports/report-template.md` para formato de saída
 4. Ler os arquivos de checks relevantes ao modo selecionado
 5. Executar a auditoria seguindo o fluxo
 6. Gerar o relatório final
+
+**Se modo for fix (fix critical/fix high/fix all/fix ISSUE-ID):**
+1. Verificar se há relatório de auditoria anterior na conversa ou no diretório
+2. Se `--dry-run`: apenas mostrar o plano de correções sem aplicar
+3. Para cada issue a corrigir: seguir o Fluxo Obrigatório acima
+4. Gerar sumário final após todas as correções
