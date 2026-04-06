@@ -259,7 +259,17 @@ Consulte `core/audit-flow.md` para o fluxo detalhado de 16 passos. Resumo:
 
 ## Formato de Saída Obrigatório (Modo Auditoria)
 
-Sempre retornar relatório seguindo `reports/report-template.md`:
+### 1. Salvar relatório completo em arquivo
+
+Ao concluir a auditoria, **obrigatoriamente** salvar o relatório completo em:
+
+```
+security-reports/YYYY-MM-DD-report.md
+```
+
+Onde `YYYY-MM-DD` é a data atual no momento da execução. Criar a pasta `security-reports/` se não existir (usar o tool Write para criar o arquivo diretamente).
+
+O arquivo deve seguir `reports/report-template.md` com todas as seções:
 
 ```
 # SECURITY AUDIT REPORT
@@ -270,9 +280,10 @@ Sempre retornar relatório seguindo `reports/report-template.md`:
 ## Low Issues (CVSS 0.1–3.9)
 ## Informational
 ## Remediation Roadmap
+## Cobertura da Auditoria
 ```
 
-Para cada issue:
+Para cada issue no arquivo:
 - **Title** — nome descritivo
 - **Severity** — Critical / High / Medium / Low / Info
 - **Confidence** — High / Medium / Low
@@ -283,6 +294,39 @@ Para cada issue:
 - **Business impact** — impacto real no negócio
 - **Fix recommendation** — como corrigir
 - **Priority** — ordem de correção
+
+### 2. Exibir na tela apenas o resumo
+
+Após salvar o arquivo, exibir na conversa **somente**:
+
+```
+## Auditoria concluída — [nome do projeto]
+Relatório completo salvo em: security-reports/YYYY-MM-DD-report.md
+
+### Resumo de Issues
+
+| ID | Severidade | Título | Arquivo |
+|----|-----------|--------|---------|
+| CRIT-001 | 🔴 Critical | Título do issue | arquivo:linha |
+| HIGH-001 | 🟠 High | Título do issue | arquivo:linha |
+| MED-001  | 🟡 Medium | Título do issue | arquivo:linha |
+| LOW-001  | 🔵 Low | Título do issue | arquivo:linha |
+
+### Contagem por Severidade
+
+| Severidade | Total |
+|-----------|-------|
+| 🔴 Critical | N |
+| 🟠 High | N |
+| 🟡 Medium | N |
+| 🔵 Low | N |
+| ⚪ Info | N |
+| **Total** | **N** |
+
+Para corrigir: `/security-audit fix critical`
+```
+
+**Nunca** exibir o relatório completo na conversa — apenas o resumo acima.
 
 ---
 
@@ -306,7 +350,8 @@ Para cada issue:
 3. Ler `reports/report-template.md` para formato de saída
 4. Ler os arquivos de checks relevantes ao modo selecionado
 5. Executar a auditoria seguindo o fluxo
-6. Gerar o relatório final
+6. Salvar o relatório completo em `security-reports/YYYY-MM-DD-report.md` usando o tool Write
+7. Exibir na conversa **apenas** o resumo em tabela (IDs, severidades, títulos, arquivos afetados) + contagem por severidade
 
 **Se modo for fix (fix critical/fix high/fix all/fix ISSUE-ID):**
 1. Verificar se há relatório de auditoria anterior na conversa ou no diretório
