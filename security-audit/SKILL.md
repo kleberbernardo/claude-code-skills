@@ -264,10 +264,10 @@ Consulte `core/audit-flow.md` para o fluxo detalhado de 16 passos. Resumo:
 Ao concluir a auditoria, **obrigatoriamente** salvar o relatório completo em:
 
 ```
-security-reports/YYYY-MM-DD-report.md
+.ai/security/YYYY-MM-DD-report.md
 ```
 
-Onde `YYYY-MM-DD` é a data atual no momento da execução. Criar a pasta `security-reports/` se não existir (usar o tool Write para criar o arquivo diretamente).
+Onde `YYYY-MM-DD` é a data atual no momento da execução. Criar a pasta `.ai/security/` se não existir (usar o tool Write para criar o arquivo diretamente).
 
 O arquivo deve seguir `reports/report-template.md` com todas as seções:
 
@@ -301,7 +301,7 @@ Após salvar o arquivo, exibir na conversa **somente**:
 
 ```
 ## Auditoria concluída — [nome do projeto]
-Relatório completo salvo em: security-reports/YYYY-MM-DD-report.md
+Relatório completo salvo em: .ai/security/YYYY-MM-DD-report.md
 
 ### Resumo de Issues
 
@@ -350,7 +350,7 @@ Para corrigir: `/security-audit fix critical`
 3. Ler `reports/report-template.md` para formato de saída
 4. Ler os arquivos de checks relevantes ao modo selecionado
 5. Executar a auditoria seguindo o fluxo
-6. Salvar o relatório completo em `security-reports/YYYY-MM-DD-report.md` usando o tool Write
+6. Salvar o relatório completo em `.ai/security/YYYY-MM-DD-report.md` usando o tool Write
 7. Exibir na conversa **apenas** o resumo em tabela (IDs, severidades, títulos, arquivos afetados) + contagem por severidade
 
 **Se modo for fix (fix critical/fix high/fix all/fix ISSUE-ID):**
