@@ -77,6 +77,14 @@ Antes de perguntar, avaliar o que já está presente na ideia inicial:
 
 Seguir `core/interview-rules.md` rigorosamente.
 
+> **Sobre a Fase 5 (UX Visual):** As perguntas visuais são coletadas para gerar um artefato separado (`ux.md`), não o PRD. Avisar o usuário antes de iniciar essa fase:
+> ```
+> Agora vou fazer algumas perguntas sobre a experiência visual do produto.
+> Essas respostas vão para um arquivo separado (ux.md) — não misturo
+> intenção visual com requisitos de produto.
+> ```
+> Se o usuário não quiser responder ("não sei", "pode escolher você"), encerrar a Fase 5 e não gerar `ux.md`.
+
 ### Fase 1 — Fundação do Produto
 
 **Bloco 1 — Produto**
@@ -155,6 +163,31 @@ Seguir `core/interview-rules.md` rigorosamente.
 - Há integrações com sistemas externos obrigatórias?
 - Existe prazo de lançamento que impacta o escopo?
 
+### Fase 5 — UX Visual (gera `ux.md` separado)
+
+> Avisar o usuário antes de iniciar esta fase conforme instrução no topo do Passo 4.
+
+**Bloco 15 — Personalidade e Referências**
+- Tem algum produto ou app que você admira visualmente como referência?
+- Como você imagina o tom visual — minimalista, bold, corporativo, descontraído?
+- Tem algo que você definitivamente NÃO quer visualmente?
+
+**Bloco 16 — Cores e Tema**
+- Preferência de tema — claro, escuro, ou com alternância?
+- Tem cores da marca definidas ou alguma direção de paleta?
+
+**Bloco 17 — Layout e Densidade**
+- O produto é denso (muita informação por tela) ou focado (uma ação por vez)?
+- Qual é a tela mais importante do produto — o que tem nela e o que o usuário precisa sentir?
+
+**Bloco 18 — Componentes Específicos**
+- Vai ter gráficos, tabelas de dados, ou o produto é mais orientado a formulários e fluxos?
+- Algum componente específico que você imagina — kanban, editor de texto, upload de arquivos?
+
+**Bloco 19 — Plataforma e Responsividade**
+- Precisa funcionar bem em mobile ou o foco é desktop?
+- Tem algum contexto de uso que afeta a interface — usado com pressa, em movimento, em escritório?
+
 ---
 
 ## Passo 5: Transição para Geração
@@ -170,7 +203,9 @@ Não perguntar se pode gerar. Apenas gerar.
 
 ---
 
-## Passo 6: Geração do PRD
+## Passo 6: Geração dos Artefatos
+
+### 6a — Gerar o PRD
 
 Usar `templates/prd-template.md` como estrutura base.
 
@@ -184,14 +219,34 @@ Usar `templates/prd-template.md` como estrutura base.
 - Critérios de aceite devem ser verificáveis (sim/não testável)
 - Edge cases devem ser realistas, não hipotéticos abstratos
 
+### 6b — Gerar o UX Visual (se Fase 5 foi respondida)
+
+Se o usuário respondeu ao menos algumas perguntas da Fase 5:
+- Usar `templates/ux-template.md` como estrutura base
+- Preencher apenas os campos que foram efetivamente respondidos
+- Campos não respondidos: deixar como `[não definido — decisão de design]`
+- **Não misturar** conteúdo do PRD no `ux.md` e vice-versa
+
+Se o usuário não quis responder a Fase 5: não gerar `ux.md`.
+
 ---
 
 ## Passo 7: Salvar e Confirmar
 
 1. Criar pasta `.ai/product/` se não existir
 2. Salvar o PRD em `.ai/product/prd.md`
-3. Exibir confirmação:
+3. Se `ux.md` foi gerado: salvar em `.ai/product/ux.md`
+4. Exibir confirmação:
 
+**Se `ux.md` gerado:**
+```
+✅ PRD salvo em .ai/product/prd.md
+✅ UX Visual salvo em .ai/product/ux.md
+
+Próximo passo: /sdd-builder design @.ai/product/prd.md @.ai/product/ux.md
+```
+
+**Se apenas PRD:**
 ```
 ✅ PRD salvo em .ai/product/prd.md
 

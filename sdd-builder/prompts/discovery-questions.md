@@ -155,13 +155,45 @@ Quando há planos ou tiers:
 
 ---
 
-## Categoria: UX e Experiência
+## Categoria: UX e Experiência Funcional
 
-Quando aspectos de experiência não foram mencionados:
+Quando aspectos de experiência funcional (não visual) não foram mencionados:
 - "O produto precisa funcionar em mobile também ou só em desktop por enquanto?"
-- "Tem alguma tela ou fluxo que você imagina claramente — algum produto que admira como referência?"
 - "Qual é o estado mais importante que o usuário vai passar mais tempo — me descreve o que tem nessa tela."
 - "Quando o produto está em segundo plano e o usuário volta, o que ele vê?"
+- "Tem alguma ação que precisa de confirmação antes de executar — algo irreversível?"
+
+---
+
+## Categoria: UX Visual (gera `ux.md` separado)
+
+> Usar apenas na Fase 5 — após o PRD estar completo. Avisar o usuário que essas respostas vão para um arquivo separado.
+
+**Personalidade e referências:**
+- "Tem algum produto ou app que você admira visualmente como referência?"
+- "Como você imagina o tom visual — minimalista, bold, corporativo, descontraído?"
+- "Tem algo que você definitivamente NÃO quer visualmente no produto?"
+- "Se o produto fosse uma pessoa, que tipo de pessoa seria — formal, descolada, técnica?"
+
+**Cores e tema:**
+- "Preferência de tema — claro, escuro, ou com alternância pelo usuário?"
+- "Tem cores da marca já definidas? Pode me passar o hex ou descrever a direção?"
+- "Tem alguma cor que você associa ao produto ou que gostaria de evitar?"
+
+**Layout e densidade:**
+- "O produto é denso — muita informação por tela — ou focado — uma ação principal por vez?"
+- "Qual é a tela mais importante do produto e o que o usuário precisa sentir ao vê-la?"
+- "O produto vai ter uma sidebar de navegação, tabs, ou outra estrutura de navegação?"
+
+**Componentes específicos:**
+- "Vai ter gráficos ou dashboards com métricas?"
+- "Vai ter tabelas com muitos dados para filtrar e ordenar?"
+- "Algum componente incomum — editor de texto rico, kanban, calendário, upload com preview?"
+
+**Plataforma e contexto:**
+- "O foco é desktop, mobile, ou precisa funcionar bem nos dois?"
+- "Em que contexto o produto vai ser usado — escritório com tempo, em movimento com pressa, outro?"
+- "Tem algum requisito de acessibilidade — daltonismo, leitores de tela, navegação por teclado?"
 
 ---
 

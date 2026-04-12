@@ -14,6 +14,7 @@ Traduzir requisitos de produto em arquitetura técnica concreta, sem lacunas, pr
 
 - `.ai/product/prd.md` deve existir e estar completo
 - Se não existir: interromper e orientar: `Execute /sdd-builder spec primeiro para gerar o PRD.`
+- `.ai/product/ux.md` é **opcional** — se existir (ou for passado como argumento), ler e usar
 
 ---
 
@@ -21,10 +22,11 @@ Traduzir requisitos de produto em arquitetura técnica concreta, sem lacunas, pr
 
 ```
 1. Ler .ai/product/prd.md completamente
-2. Identificar gaps técnicos e decisões implícitas
-3. Estruturar o design seguindo templates/design-template.md
-4. Salvar em .ai/product/design.md
-5. Confirmar e indicar próximo passo
+2. Se ux.md existir: ler e extrair intenções visuais relevantes
+3. Identificar gaps técnicos e decisões implícitas
+4. Estruturar o design seguindo templates/design-template.md
+5. Salvar em .ai/product/design.md
+6. Confirmar e indicar próximo passo
 ```
 
 ---
@@ -43,18 +45,34 @@ Extrair:
 
 ---
 
+## Passo 1b: Leitura do UX Visual (se disponível)
+
+Se `.ai/product/ux.md` existir, extrair:
+- Stack de UI sugerida (ex: se há referências a produtos que usam Tailwind, Shadcn, Material)
+- Componentes específicos confirmados (tabelas, gráficos, kanban) — afetam escolha de libraries
+- Tema (claro/escuro) — afeta estrutura de theming e variáveis CSS
+- Densidade — afeta decisões de component library (Shadcn vs Ant Design vs MUI)
+- Telas-chave descritas — informam estrutura de rotas e hierarquia de componentes
+
+**Regra:** Usar o `ux.md` para informar decisões de frontend — não inventar estilo sem base nele.  
+Se `ux.md` não existir: tomar decisões padrão justificadas e registrar em "Decisões Técnicas".
+
+---
+
 ## Passo 2: Mapeamento de Decisões Técnicas
 
 Para cada seção do design, mapear os requisitos correspondentes do PRD:
 
-| Seção do Design | Fontes no PRD |
-|----------------|--------------|
-| Stack | Restrições técnicas (seção 12) |
-| Módulos | Requisitos funcionais (seção 8) + Fluxos (seção 6) |
-| Modelo de Dados | Entidades implícitas nos fluxos e regras de negócio |
-| Endpoints | Fluxos principais (seção 6) |
-| Autenticação | Tipos de usuário (seção 3) + Regras de acesso (seção 7) |
-| Integrações | Restrições e integrações (seção 12) |
+| Seção do Design | Fontes no PRD | Fontes no UX (se disponível) |
+|----------------|--------------|------------------------------|
+| Stack | Restrições técnicas (seção 15) | Component library, framework de UI |
+| Módulos | Requisitos funcionais (seção 10) + Fluxos (seção 8) | Telas-chave (seção 6 do ux.md) |
+| Modelo de Dados | Entidades implícitas nos fluxos e regras de negócio | — |
+| Endpoints | Fluxos principais (seção 8) | — |
+| Autenticação | Tipos de usuário (seção 3) + Regras de acesso (seção 9) | — |
+| Integrações | Restrições e integrações (seção 15) | — |
+| Theming/Design System | — | Cores, tipografia, tema (seções 2–3 do ux.md) |
+| Componentes Frontend | User Stories (seção 6) | Componentes específicos (seção 5 do ux.md) |
 
 Se houver decisão técnica sem correspondência no PRD: registrar em "Itens em Aberto".
 
@@ -128,6 +146,14 @@ Verificar antes de salvar:
 1. Salvar em `.ai/product/design.md`
 2. Exibir confirmação:
 
+**Se `ux.md` foi lido:**
+```
+✅ Design técnico salvo em .ai/product/design.md
+
+Próximo passo: /sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md @.ai/product/ux.md
+```
+
+**Se apenas PRD foi lido:**
 ```
 ✅ Design técnico salvo em .ai/product/design.md
 

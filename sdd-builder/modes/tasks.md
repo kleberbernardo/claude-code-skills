@@ -15,6 +15,7 @@ Transformar o PRD + Design em um conjunto de tasks pequenas, sequenciais, indepe
 - `.ai/product/prd.md` deve existir
 - `.ai/product/design.md` deve existir
 - Se qualquer um faltar: interromper e orientar com os passos anteriores
+- `.ai/product/ux.md` é **opcional** — se existir (ou for passado como argumento), ler e usar nas tasks de frontend
 
 ---
 
@@ -22,20 +23,21 @@ Transformar o PRD + Design em um conjunto de tasks pequenas, sequenciais, indepe
 
 ```
 1. Ler .ai/product/prd.md e .ai/product/design.md completamente
-2. Identificar todos os componentes a implementar
-3. Planejar a sequência de tasks (vertical, ponta a ponta)
-4. Gerar cada task usando templates/task-template.md
-5. Salvar em .ai/product/tasks/
-6. Confirmar e exibir lista de tasks geradas
+2. Se ux.md existir: ler e registrar intenções visuais relevantes por tela
+3. Identificar todos os componentes a implementar
+4. Planejar a sequência de tasks (vertical, ponta a ponta)
+5. Gerar cada task usando templates/task-template.md
+6. Salvar em .ai/product/tasks/
+7. Confirmar e exibir lista de tasks geradas
 ```
 
 ---
 
 ## Passo 1: Leitura e Inventário
 
-Ler ambos os documentos completamente.
+Ler todos os documentos disponíveis completamente.
 
-Extrair:
+Extrair do Design:
 - Todos os módulos do Design (seção 5)
 - Todos os endpoints/actions (seção 8)
 - Todos os fluxos técnicos (seção 9)
@@ -43,6 +45,11 @@ Extrair:
 - Estratégia de autenticação (seção 10)
 - Integrações externas (seção 12)
 - Estratégia de testes (seção 15)
+
+Extrair do UX (se disponível):
+- Componentes de UI específicos (tabelas, gráficos, kanban) — incluir nas tasks de frontend
+- Telas-chave descritas — usar como critério de aceite visual nas tasks de UI
+- Paleta e tema — incluir configuração de theming na task de setup
 
 ---
 
@@ -121,6 +128,11 @@ Para cada task:
 - Unitários: funções/classes específicas com casos específicos
 - Integração: fluxos específicos com dados específicos
 - Manual: passos exatos de validação visual/interativa
+
+**Em tasks de frontend (UI):** se `ux.md` foi lido, adicionar:
+- Referência à tela correspondente no `ux.md` (seção 6 — Telas-Chave)
+- Critério de aceite visual: "A tela deve transmitir [emoção definida no ux.md]"
+- Nota sobre paleta e theming definidos no `ux.md`
 
 ---
 

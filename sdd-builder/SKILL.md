@@ -23,9 +23,12 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 
 | Modo | Comando | Entrada | Saída |
 |------|---------|---------|-------|
-| `spec` | `/sdd-builder spec` | Entrevista interativa | `.ai/product/prd.md` |
-| `design` | `/sdd-builder design @.ai/product/prd.md` | PRD existente | `.ai/product/design.md` |
-| `tasks` | `/sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md` | PRD + Design | `.ai/product/tasks/*.md` |
+| `spec` | `/sdd-builder spec` | Entrevista interativa | `prd.md` + `ux.md` (opcional) |
+| `design` | `/sdd-builder design @prd.md [@ux.md]` | PRD + UX opcional | `.ai/product/design.md` |
+| `tasks` | `/sdd-builder tasks @prd.md @design.md [@ux.md]` | PRD + Design + UX opcional | `.ai/product/tasks/*.md` |
+
+> `ux.md` é gerado no `spec` se o usuário responder as perguntas visuais da Fase 5.  
+> Quando presente, o `ux.md` informa decisões de frontend no `design` e nas `tasks` — mas nunca mistura com requisitos de produto.
 
 ---
 
@@ -66,14 +69,21 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 
 ```
 .ai/product/
-  prd.md              ← gerado pelo modo spec
-  design.md           ← gerado pelo modo design
+  prd.md              ← gerado pelo modo spec (O QUE / PARA QUEM)
+  ux.md               ← gerado pelo modo spec, Fase 5 (COMO PARECE — opcional)
+  design.md           ← gerado pelo modo design (COMO FUNCIONA TECNICAMENTE)
   tasks/
     001-task-name.md  ← gerado pelo modo tasks
     002-task-name.md
     003-task-name.md
     ...
 ```
+
+**Separação de responsabilidades:**
+- `prd.md` — requisitos de produto: o que faz, para quem, regras de negócio, user stories
+- `ux.md` — intenção visual: cores, tipografia, referências, layout, componentes específicos
+- `design.md` — arquitetura técnica: stack, módulos, modelo de dados, endpoints, componentes
+- `tasks/` — implementação: uma task por feature, ponta a ponta
 
 ---
 
