@@ -12,10 +12,25 @@ Transformar o PRD + Design em um conjunto de tasks pequenas, sequenciais, indepe
 
 ## Pré-requisitos
 
-- `.ai/product/prd.md` deve existir
-- `.ai/product/design.md` deve existir
-- Se qualquer um faltar: interromper e orientar com os passos anteriores
-- `.ai/product/ux.md` é **opcional** — se existir (ou for passado como argumento), ler e usar nas tasks de frontend
+Aceita dois cenários:
+
+**Cenário A — Produto novo:**
+- `.ai/product/prd.md` + `.ai/product/design.md` obrigatórios
+- `.ai/product/ux.md` opcional
+
+**Cenário B — Feature incremental:**
+- `.ai/product/features/NNN-nome.md` + `.ai/product/design.md` obrigatórios
+- `.ai/product/prd.md` opcional (contexto)
+- `.ai/product/ux.md` opcional
+
+Se nenhum artefato de spec existir: interromper e orientar.
+
+### Regras para Cenário B (feature incremental)
+
+- Gerar tasks **apenas para o delta da feature** — não regerar tasks do produto inteiro
+- Prefixar tasks com o número da feature: `NNN-001-nome.md` (ex: `002-001-setup-notificacoes.md`)
+- Se tasks anteriores precisam ser modificadas: criar uma task de refactor explícita, não editar silenciosamente
+- Referenciar explicitamente as tasks existentes que são pré-requisito
 
 ---
 

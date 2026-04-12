@@ -12,22 +12,40 @@ Traduzir requisitos de produto em arquitetura técnica concreta, sem lacunas, pr
 
 ## Pré-requisitos
 
+Aceita dois cenários de entrada:
+
+**Cenário A — Produto novo (após `spec`):**
 - `.ai/product/prd.md` deve existir e estar completo
-- Se não existir: interromper e orientar: `Execute /sdd-builder spec primeiro para gerar o PRD.`
-- `.ai/product/ux.md` é **opcional** — se existir (ou for passado como argumento), ler e usar
+- `.ai/product/ux.md` é opcional
+
+**Cenário B — Feature incremental (após `feature`):**
+- `.ai/product/features/NNN-nome.md` deve existir
+- `.ai/product/prd.md` é opcional (lido como contexto se existir)
+- `.ai/product/design.md` existente deve ser lido para entender arquitetura atual
+
+Se nenhum dos dois existir: interromper e orientar a executar `spec` ou `feature` primeiro.
 
 ---
 
 ## Fluxo de Execução
 
 ```
-1. Ler .ai/product/prd.md completamente
-2. Se ux.md existir: ler e extrair intenções visuais relevantes
-3. Identificar gaps técnicos e decisões implícitas
-4. Estruturar o design seguindo templates/design-template.md
-5. Salvar em .ai/product/design.md
-6. Confirmar e indicar próximo passo
+1. Identificar o cenário (A ou B) pelos arquivos passados como argumento
+2. Ler todos os artefatos disponíveis (prd, feature spec, design existente, ux)
+3. Se Cenário B: verificar arquitetura existente para não conflitar
+4. Verificar versões da stack (Passo 1c)
+5. Estruturar o design seguindo templates/design-template.md
+6. Salvar em .ai/product/design.md
+7. Confirmar e indicar próximo passo
 ```
+
+### Regras para Cenário B (feature incremental)
+
+- Ler o `design.md` existente antes de gerar — não conflitar com arquitetura estabelecida
+- Reutilizar módulos, entidades e padrões já definidos
+- Adicionar apenas o que é novo — não reescrever seções sem alteração
+- Marcar claramente o que é novo vs. extensão de existente: `[NOVO]` e `[ESTENDE: módulo X]`
+- Se houver conflito com arquitetura existente: registrar em "Itens em Aberto" e apresentar opções
 
 ---
 

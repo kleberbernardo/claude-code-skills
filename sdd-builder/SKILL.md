@@ -21,11 +21,15 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 
 ## Modos de Execução
 
-| Modo | Comando | Entrada | Saída |
-|------|---------|---------|-------|
-| `spec` | `/sdd-builder spec` | Entrevista interativa | `prd.md` + `ux.md` (opcional) |
-| `design` | `/sdd-builder design @prd.md [@ux.md]` | PRD + UX opcional | `.ai/product/design.md` |
-| `tasks` | `/sdd-builder tasks @prd.md @design.md [@ux.md]` | PRD + Design + UX opcional | `.ai/product/tasks/*.md` |
+| Modo | Comando | Quando usar | Saída |
+|------|---------|------------|-------|
+| `spec` | `/sdd-builder spec` | Produto novo, do zero | `prd.md` + `ux.md` (opcional) |
+| `feature` | `/sdd-builder feature [@prd.md]` | Produto existente, feature nova | `features/NNN-nome.md` + atualiza `prd.md` |
+| `design` | `/sdd-builder design @prd.md [@ux.md]` | Após spec ou feature | `design.md` |
+| `tasks` | `/sdd-builder tasks @prd.md @design.md [@ux.md]` | Após design | `tasks/*.md` |
+
+> **Greenfield** (produto novo): `spec` → `design` → `tasks`  
+> **Incremental** (feature em produto existente): `feature` → `design @prd.md @features/NNN.md` → `tasks @prd.md @design.md`
 
 > `ux.md` é gerado no `spec` se o usuário responder as perguntas visuais da Fase 5.  
 > Quando presente, o `ux.md` informa decisões de frontend no `design` e nas `tasks` — mas nunca mistura com requisitos de produto.
@@ -40,12 +44,15 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 - `core/output-conventions.md` — convenções de nomes, paths e formatos
 
 ### Modos
-- `modes/spec.md` — fluxo completo do modo SPEC
+- `modes/spec.md` — fluxo completo do modo SPEC (produto novo)
+- `modes/feature.md` — fluxo completo do modo FEATURE (feature incremental)
 - `modes/design.md` — fluxo completo do modo DESIGN
 - `modes/tasks.md` — fluxo completo do modo TASKS
 
 ### Templates
 - `templates/prd-template.md` — template do PRD
+- `templates/feature-template.md` — template do Feature Spec
+- `templates/ux-template.md` — template do UX Visual
 - `templates/design-template.md` — template do Design Técnico
 - `templates/task-template.md` — template de cada Task
 
@@ -72,6 +79,9 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
   prd.md              ← gerado pelo modo spec (O QUE / PARA QUEM)
   ux.md               ← gerado pelo modo spec, Fase 5 (COMO PARECE — opcional)
   design.md           ← gerado pelo modo design (COMO FUNCIONA TECNICAMENTE)
+  features/
+    001-nome.md       ← gerado pelo modo feature (FEATURE INCREMENTAL)
+    002-nome.md
   tasks/
     001-task-name.md  ← gerado pelo modo tasks
     002-task-name.md
@@ -117,9 +127,25 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 
 ## Início da Execução
 
-1. Identificar o modo pelo argumento (`spec`, `design`, `tasks`)
+1. Identificar o modo pelo argumento (`spec`, `feature`, `design`, `tasks`)
 2. Ler o arquivo de modo correspondente em `modes/`
 3. Se modo `design` ou `tasks`: verificar e ler arquivos de entrada obrigatórios
 4. Executar o fluxo do modo seguindo as instruções internas
 5. Salvar todos os outputs antes de responder ao usuário
 6. Informar o próximo passo recomendado
+
+### Detecção automática de modo incremental
+
+Se o usuário executar `/sdd-builder spec` mas `.ai/product/prd.md` já existir:
+
+```
+Já existe um PRD em .ai/product/prd.md para o produto [Nome].
+
+Você quer:
+A) Adicionar uma nova feature ao produto existente → /sdd-builder feature
+B) Reescrever o PRD do zero → confirmar antes de prosseguir
+
+Qual deles?
+```
+
+Não sobrescrever o prd.md existente sem confirmação explícita do usuário.
