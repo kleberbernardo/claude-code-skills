@@ -2,7 +2,7 @@
 name: sdd-builder
 description: Spec-Driven Development — transforma uma ideia em documentação estruturada, completa e executável via entrevista interativa → PRD → Design Técnico → Tasks detalhadas. Pronto para execução por agentes RPI.
 argument-hint: "<spec|design|tasks> [@.ai/product/prd.md] [@.ai/product/design.md]"
-allowed-tools: Read, Edit, Write, Glob, Grep, Bash
+allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch
 ---
 
 # SDD Builder Skill
@@ -84,6 +84,21 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 - `ux.md` — intenção visual: cores, tipografia, referências, layout, componentes específicos
 - `design.md` — arquitetura técnica: stack, módulos, modelo de dados, endpoints, componentes
 - `tasks/` — implementação: uma task por feature, ponta a ponta
+
+---
+
+## Uso das Ferramentas por Modo
+
+| Ferramenta | Quando usar |
+|------------|------------|
+| `Read` | Ler prd.md, ux.md, design.md antes de gerar; ler imagens/screenshots de referência no spec |
+| `Write` | Salvar prd.md, ux.md, design.md, tasks/*.md |
+| `Edit` | Corrigir seções de artefatos já gerados |
+| `WebFetch` | Acessar URLs de referência fornecidas pelo usuário no spec (Fase 5) |
+| `WebSearch` | Pesquisar produto de referência desconhecido; verificar versões/boas práticas de framework no design |
+| `Glob` | Verificar se arquivos de entrada existem; listar tasks já geradas |
+| `Grep` | Buscar seção específica em prd.md ou design.md durante geração de tasks |
+| `Bash` | Criar diretórios (.ai/product/tasks/) quando necessário |
 
 ---
 

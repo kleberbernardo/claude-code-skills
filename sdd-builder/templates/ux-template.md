@@ -11,16 +11,47 @@
 
 **Tom geral:** [Minimalista / Bold / Corporativo / Descontraído / Técnico / Premium / Amigável / outro]
 
-**Referências visuais:**
-- [Produto/app de referência 1] — [o que admira nele]
-- [Produto/app de referência 2] — [o que admira nele]
-
 **O que EVITAR visualmente:**
 - [Ex: excesso de cores, animações exageradas, interface densa demais]
 
 ---
 
-## 2. Paleta de Cores
+## 2. Referências Visuais
+
+<!-- Referências validadas com o usuário. NUNCA registrar "igual ao X" sem extrair e confirmar aspectos específicos.
+     Cada referência deve ter: origem (produto/URL/imagem) + aspectos específicos confirmados pelo usuário. -->
+
+### Referências por Produto Mencionado
+
+| Produto de Referência | Aspectos Confirmados | Aspectos Descartados |
+|-----------------------|---------------------|---------------------|
+| [Ex: Notion] | [Sidebar hierárquica, tipografia clean, muito espaço branco] | [Blocos de conteúdo — não se aplica] |
+| [Ex: Linear] | [Atalhos de teclado, velocidade percebida, densidade alta] | [Visual de ferramenta dev] |
+
+### Referências por URL
+
+| URL | O que foi observado | Aspectos que o usuário quer replicar |
+|-----|--------------------|------------------------------------|
+| [url fornecida] | [Paleta, layout, componentes vistos] | [O que o usuário confirmou querer] |
+
+### Referências por Imagem/Screenshot
+
+| Arquivo | O que foi observado | Aspectos confirmados |
+|---------|--------------------|--------------------|
+| [path/screenshot.png] | [Cores, layout, componentes descritos] | [O que o usuário confirmou] |
+
+### Síntese das Referências
+
+<!-- O que extrair de todas as referências acima para guiar o design. -->
+
+- **Paleta derivada das referências:** [Ex: fundo escuro, texto claro, accent azul]
+- **Layout derivado:** [Ex: sidebar + área principal, sem header top]
+- **Componentes recorrentes nas referências:** [Ex: cards com sombra sutil, tabelas densas]
+- **Filosofia visual comum:** [Ex: "ferramenta séria, sem distrações"]
+
+---
+
+## 3. Paleta de Cores
 
 <!-- Direção de cores. Pode ser vaga ("tons de azul escuro") ou específica (hex codes). -->
 
@@ -41,7 +72,7 @@
 
 ---
 
-## 3. Tipografia
+## 4. Tipografia
 
 <!-- Preferências de fontes. Pode ser vaga ("algo moderno e legível") ou específica. -->
 
@@ -55,7 +86,7 @@
 
 ---
 
-## 4. Densidade e Layout
+## 5. Densidade e Layout
 
 <!-- Como o produto "sente" — cheio de informação ou focado numa ação por vez. -->
 
@@ -69,7 +100,7 @@
 
 ---
 
-## 5. Componentes e Padrões de UI
+## 6. Componentes e Padrões de UI
 
 <!-- Quais tipos de componente vão aparecer. Informa as decisões de library e arquitetura de componentes. -->
 
@@ -92,7 +123,7 @@
 
 ---
 
-## 6. Telas-Chave Descritas
+## 7. Telas-Chave Descritas
 
 <!-- Descrição em prosa das telas mais importantes. NÃO é wireframe — é intenção. -->
 
@@ -126,7 +157,7 @@
 
 ---
 
-## 7. Interações e Animações
+## 8. Interações e Animações
 
 <!-- Filosofia de movimento e feedback visual. -->
 
@@ -142,7 +173,7 @@
 
 ---
 
-## 8. Responsividade e Plataforma
+## 9. Responsividade e Plataforma
 
 <!-- Onde e como o produto vai ser usado visualmente. -->
 
@@ -159,7 +190,7 @@
 
 ---
 
-## 9. Acessibilidade
+## 10. Acessibilidade
 
 <!-- Nível de atenção à acessibilidade. -->
 
@@ -173,7 +204,7 @@
 
 ---
 
-## 10. Notas e Restrições Adicionais
+## 11. Notas e Restrições Adicionais
 
 <!-- Qualquer outra intenção visual que não se enquadrou acima. -->
 

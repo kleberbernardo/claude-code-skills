@@ -66,6 +66,91 @@ A resposta está clara o suficiente para avançar?
 
 ---
 
+## Protocolo de Referências Visuais
+
+Quando o usuário mencionar um produto de referência, fornecer uma URL ou uma imagem, ativar o protocolo abaixo. **Isso se aplica exclusivamente na Fase 5 (UX Visual).**
+
+### Padrão "igual ao [Produto]"
+
+Quando o usuário diz "quero igual ao Notion", "parecido com o Linear", "tipo o Stripe", etc.:
+
+1. **Nunca registrar como referência sem validar.** "Igual ao Notion" pode significar coisas completamente diferentes para pessoas diferentes.
+2. **Extrair as características conhecidas do produto citado** e apresentar ao usuário para validação. Use seu conhecimento sobre o produto — não invente.
+3. **Perguntar qual(is) aspectos específicos** o usuário quer replicar.
+
+**Exemplo de resposta correta:**
+```
+Entendido — Notion tem algumas características marcantes:
+sidebar de navegação hierárquica, tipografia clean com muito espaço branco,
+interface de blocos, tema claro como padrão com suporte a escuro,
+e densidade baixa — uma coisa por vez.
+
+Qual dessas você quer trazer para o seu produto?
+```
+
+**Depois de validar:** registrar no `ux.md` apenas os aspectos confirmados, não o nome do produto como referência genérica.
+
+---
+
+### Padrão URL fornecida
+
+Quando o usuário fornece uma URL de produto ou inspiração:
+
+1. **Usar WebFetch para acessar a URL** e analisar o design visualmente (ou extrair do conteúdo textual o que for possível).
+2. **Descrever em 2–3 frases o que foi observado** (cores, densidade, componentes, estrutura).
+3. **Perguntar o que especificamente o usuário admira** naquela referência.
+4. **Registrar no `ux.md`**: a URL + descrição do que foi extraído + aspectos confirmados pelo usuário.
+
+**Exemplo:**
+```
+Acessei [url] — vi uma interface com predominância de fundo escuro (#0F0F0F),
+tipografia em branco com hierarquia bem definida, cards com bordas sutis
+e muita densidade de informação.
+
+O que você mais quer trazer dessa referência para o seu produto?
+```
+
+---
+
+### Padrão Screenshot / Imagem fornecida
+
+Quando o usuário fornece um path de imagem ou screenshot:
+
+1. **Usar Read tool para ler o arquivo visualmente** (suporta PNG, JPG, etc.).
+2. **Descrever o que foi observado**: paleta de cores usada, componentes visíveis, densidade, layout.
+3. **Validar com o usuário** se a observação está alinhada com a intenção.
+4. **Registrar no `ux.md`**: path da imagem + descrição extraída + confirmação do usuário.
+
+**Exemplo:**
+```
+Vi na imagem: layout de duas colunas com sidebar escura à esquerda,
+área principal clara com cards organizados em grid de 3 colunas,
+botão de ação principal em azul vivo (#2563EB).
+
+É essa estrutura geral que você quer replicar, ou tem algum detalhe específico?
+```
+
+---
+
+### Produto de referência desconhecido
+
+Se o usuário menciona um produto que você não conhece bem:
+
+1. **Usar WebSearch** para pesquisar "[nome do produto] UI design interface" e extrair características visuais.
+2. Apresentar o que encontrou e validar com o usuário antes de registrar.
+3. Se WebSearch não retornar resultados úteis: pedir ao usuário que descreva o que admira nele.
+
+---
+
+### O que NUNCA fazer com referências
+
+- Nunca registrar "quero igual ao Notion" no `ux.md` sem extrair aspectos específicos
+- Nunca assumir que o usuário quer tudo de uma referência — ele pode querer só a tipografia
+- Nunca buscar URLs sem o usuário ter fornecido explicitamente
+- Nunca inventar características de produtos que você não conhece — usar WebSearch primeiro
+
+---
+
 ## Regras de Condução
 
 ### O que fazer
