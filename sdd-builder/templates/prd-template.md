@@ -14,6 +14,8 @@
 
 **Contexto:** [Onde será usado, em que plataforma, por quem]
 
+**Categoria:** [SaaS B2B / SaaS B2C / Marketplace / API / Ferramenta interna / outro]
+
 ---
 
 ## 2. Problema a Ser Resolvido
@@ -30,22 +32,26 @@
 
 ---
 
-## 3. Público-Alvo e Usuários
+## 3. Público-Alvo e Personas
 
-<!-- Descrição específica de quem usa. Se houver mais de um tipo de usuário, listar cada um. -->
+<!-- Descrição específica de quem usa. Se houver mais de um tipo de usuário, listar cada um com persona detalhada. -->
 
-### Usuário Principal
+### Persona Principal
 
-- **Perfil:** [Quem é, o que faz, contexto]
-- **Necessidade:** [O que precisa do produto]
+- **Nome fictício:** [Ex: "Ana, Gestora de Projetos"]
+- **Perfil:** [Quem é, o que faz, contexto de vida/trabalho]
+- **Necessidade principal:** [O que precisa do produto]
 - **Frequência de uso:** [Diário, semanal, ocasional]
 - **Nível técnico:** [Iniciante, intermediário, avançado]
+- **Ponto de dor atual:** [Como sofre sem o produto]
+- **Critério de sucesso:** [O que indica que o produto resolveu o problema dela]
 
 ### Outros Tipos de Usuário (se houver)
 
-| Tipo | Descrição | Permissões | Necessidade |
-|------|-----------|------------|-------------|
-| [Tipo 1] | [Descrição] | [O que pode fazer] | [Por que usa] |
+| Tipo | Descrição | Permissões | Necessidade principal |
+|------|-----------|------------|----------------------|
+| [Admin] | [Descrição] | [O que pode fazer] | [Por que usa] |
+| [Tipo 2] | [Descrição] | [O que pode fazer] | [Por que usa] |
 
 ---
 
@@ -83,7 +89,86 @@
 
 ---
 
-## 6. Fluxos Principais
+## 6. User Stories
+
+<!-- User Stories organizadas por épico. Cobrir todas as funcionalidades do escopo funcional.
+     Formato: Como [perfil de usuário], quero [ação/funcionalidade] para [valor/benefício].
+     Critérios de aceite seguem no formato Dado/Quando/Então. -->
+
+### Épico: [Nome do Épico 1 — ex: Autenticação]
+
+**US-001 — [Título curto]**
+> Como [tipo de usuário], quero [ação] para [benefício].
+
+Critérios de aceite:
+- Dado [contexto], quando [ação], então [resultado esperado]
+- Dado [contexto inválido], quando [ação], então [mensagem de erro específica]
+
+---
+
+**US-002 — [Título curto]**
+> Como [tipo de usuário], quero [ação] para [benefício].
+
+Critérios de aceite:
+- Dado [contexto], quando [ação], então [resultado esperado]
+
+---
+
+### Épico: [Nome do Épico 2 — ex: Onboarding]
+
+**US-003 — [Título curto]**
+> Como [tipo de usuário], quero [ação] para [benefício].
+
+Critérios de aceite:
+- Dado [contexto], quando [ação], então [resultado esperado]
+
+---
+
+### Épico: [Nome do Épico 3 — ex: Funcionalidade Principal]
+
+**US-004 — [Título curto]**
+> Como [tipo de usuário], quero [ação] para [benefício].
+
+Critérios de aceite:
+- Dado [contexto], quando [ação], então [resultado esperado]
+
+---
+
+## 7. SaaS Foundation
+
+<!-- Funcionalidades padrão de SaaS que fazem parte do produto. Listar com as variações confirmadas. -->
+
+### Autenticação e Acesso
+
+| Feature | Especificação | Notas |
+|---------|--------------|-------|
+| Cadastro | [E-mail + senha / Google / convite / outro] | [Confirmação de e-mail: sim/não] |
+| Login | [E-mail + senha / Google / GitHub / outro] | [Sessão: duração confirmada] |
+| Recuperação de senha | [Via e-mail com link temporário] | [Expiração do link] |
+| 2FA | [Sim/Não — método se sim] | |
+| SSO | [Sim/Não — provider se sim] | |
+
+### Onboarding
+
+| Etapa | Descrição | Obrigatório? |
+|-------|-----------|-------------|
+| Tela de boas-vindas | [O que aparece primeiro] | Sim/Não |
+| Setup inicial | [Configuração obrigatória antes de usar] | Sim/Não |
+| Tour ou tutorial | [Guiado / tooltip / vídeo / nenhum] | Sim/Não |
+| Estado vazio | [O que aparece quando não há dados] | Sim |
+
+### Perfil e Conta
+
+| Feature | Especificação |
+|---------|--------------|
+| Editar perfil | [Campos editáveis: nome, foto, etc.] |
+| Alterar senha | [Dentro do app logado] |
+| Deletar conta | [Sim/Não — com confirmação e aviso de dados] |
+| Notificações de conta | [E-mails transacionais obrigatórios] |
+
+---
+
+## 8. Fluxos Principais
 
 <!-- Sequência passo a passo dos fluxos principais. Incluir o happy path e o caminho de erro principal. -->
 
@@ -110,7 +195,7 @@
 
 ---
 
-## 7. Regras de Negócio
+## 9. Regras de Negócio
 
 <!-- Regras que o sistema deve obedecer. Cada regra: condição → resultado. Verificável. -->
 
@@ -121,20 +206,20 @@
 
 ---
 
-## 8. Requisitos Funcionais
+## 10. Requisitos Funcionais
 
 <!-- Listagem detalhada do que o sistema deve fazer. Agrupado por módulo/funcionalidade. -->
 
-### [Módulo 1]
+### [Módulo 1 — ex: Autenticação]
 - RF-001: O sistema deve [ação específica]
 - RF-002: O sistema deve [ação específica]
 
-### [Módulo 2]
+### [Módulo 2 — ex: Funcionalidade Principal]
 - RF-003: O sistema deve [ação específica]
 
 ---
 
-## 9. Requisitos Não Funcionais
+## 11. Requisitos Não Funcionais
 
 <!-- Performance, segurança, disponibilidade, usabilidade, compatibilidade. -->
 
@@ -144,12 +229,14 @@
 | Segurança | [Ex: autenticação] | [Ex: JWT com expiração de 24h] |
 | Disponibilidade | [Ex: uptime] | [Ex: 99.5% mensal] |
 | Usabilidade | [Ex: acessibilidade] | [Ex: WCAG 2.1 AA] |
+| Compatibilidade | [Ex: browsers] | [Ex: Chrome, Firefox, Safari — últimas 2 versões] |
+| Mobile | [Responsivo ou app nativo] | [Ex: funcional em telas ≥ 320px] |
 
 ---
 
-## 10. Critérios de Aceite
+## 12. Critérios de Aceite
 
-<!-- Por funcionalidade ou fluxo. Cada critério deve ser verificável (sim/não). -->
+<!-- Por User Story ou funcionalidade. Cada critério deve ser verificável (sim/não). -->
 
 ### [Funcionalidade 1]
 - [ ] Dado [contexto], quando [ação], então [resultado esperado]
@@ -160,7 +247,7 @@
 
 ---
 
-## 11. Edge Cases e Cenários de Falha
+## 13. Edge Cases e Cenários de Falha
 
 <!-- Situações não-óbvias que o sistema deve tratar. Derivadas dos fluxos e regras de negócio. -->
 
@@ -171,7 +258,27 @@
 
 ---
 
-## 12. Restrições Técnicas e de Negócio
+## 14. Monetização e Modelo de Negócio
+
+<!-- Modelo de receita, planos, trial, e o que muda entre planos. -->
+
+**Modelo:** [Assinatura mensal / por uso / freemium / compra única / gratuito]
+
+### Planos (se houver)
+
+| Plano | Preço | Features incluídas | Limite |
+|-------|-------|--------------------|--------|
+| [Free/Starter] | [R$ 0] | [Lista de features] | [Limites] |
+| [Pro] | [R$ X/mês] | [Lista de features] | [Limites] |
+| [Enterprise] | [Custom] | [Lista de features] | [Sem limites] |
+
+**Trial:** [Sim / Não — duração se sim]
+
+**O que acontece após expiração do trial:** [Bloqueio total / downgrade para free / notificação]
+
+---
+
+## 15. Restrições Técnicas e de Negócio
 
 <!-- Limitações que o design e a implementação devem respeitar. -->
 
@@ -183,11 +290,11 @@
 ### Restrições de Negócio
 - [Ex: prazo de lançamento]
 - [Ex: orçamento de infraestrutura]
-- [Ex: requisitos legais/de compliance]
+- [Ex: requisitos legais/de compliance — LGPD, GDPR]
 
 ---
 
-## 13. Métricas de Sucesso
+## 16. Métricas de Sucesso
 
 <!-- Como medir se o produto funcionou. Quantificável e com baseline quando possível. -->
 
@@ -198,7 +305,7 @@
 
 ---
 
-## 14. Premissas
+## 17. Premissas
 
 <!-- O que foi assumido sem confirmação explícita. Marcar itens assumidos aqui. -->
 
@@ -207,7 +314,7 @@
 
 ---
 
-## 15. Riscos
+## 18. Riscos
 
 <!-- Riscos identificados e estratégia de mitigação. -->
 
@@ -217,7 +324,7 @@
 
 ---
 
-## 16. Dúvidas em Aberto
+## 19. Dúvidas em Aberto
 
 <!-- Questões não resolvidas que podem impactar o design ou a implementação. -->
 
