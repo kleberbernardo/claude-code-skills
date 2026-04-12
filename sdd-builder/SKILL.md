@@ -1,7 +1,7 @@
 ---
 name: sdd-builder
 description: Spec-Driven Development — transforma uma ideia em documentação estruturada, completa e executável via entrevista interativa → PRD → Design Técnico → Tasks detalhadas. Pronto para execução por agentes RPI.
-argument-hint: "<spec|design|tasks> [@.ai/product/prd.md] [@.ai/product/design.md]"
+argument-hint: "<spec|feature|design|tasks> [@.ai/product/prd.md] [@.ai/product/design.md] [@.ai/product/ux.md]"
 allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch
 ---
 
