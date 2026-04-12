@@ -59,6 +59,32 @@ Se `ux.md` não existir: tomar decisões padrão justificadas e registrar em "De
 
 ---
 
+## Passo 1c: Verificação de Versões da Stack (obrigatório)
+
+**Antes de gerar qualquer conteúdo do design**, identificar todos os pacotes e frameworks que serão usados e verificar as versões mais recentes estáveis via `WebSearch`.
+
+### Protocolo de versões
+
+1. Identificar a stack a partir do PRD (seção Restrições Técnicas) e do `ux.md` (se disponível)
+2. Para **cada pacote principal**, executar uma busca: `"[pacote] latest stable version [ano atual]"` ou `"[pacote] current release"`
+3. Registrar a versão encontrada — usar sempre a **latest stable**, nunca beta/RC a menos que o usuário tenha especificado
+4. Se a busca não retornar resultado confiável: registrar `[versão não verificada — confirmar em npmjs.com / pypi / pkg.go.dev]`
+
+### Pacotes que SEMPRE precisam de verificação de versão
+
+| Categoria | Exemplos |
+|-----------|---------|
+| Framework principal | Next.js, Nuxt, SvelteKit, Remix, FastAPI, NestJS, Laravel |
+| Runtime | Node.js LTS, Python, Go, Bun |
+| ORM / banco | Prisma, Drizzle, TypeORM, SQLAlchemy |
+| Autenticação | NextAuth, Lucia, Supabase Auth, Clerk |
+| UI Library | Shadcn/ui, Radix, MUI, Ant Design, Tailwind CSS |
+| Infra / deploy | Docker, Terraform, versão do Postgres, Redis |
+
+**Regra:** Nenhuma versão pode ser inventada ou baseada em conhecimento de treinamento do modelo — versões ficam desatualizadas. Sempre verificar.
+
+---
+
 ## Passo 2: Mapeamento de Decisões Técnicas
 
 Para cada seção do design, mapear os requisitos correspondentes do PRD:
@@ -85,10 +111,12 @@ Usar `templates/design-template.md` como estrutura base.
 ### Regras por seção:
 
 **Seção 3 — Stack e Dependências**
-- Listar pacotes com versão quando relevante
+- Listar **todos** os pacotes com versão — obrigatório, sem exceção
+- Versões devem ter sido verificadas no Passo 1c — nunca usar versão de memória
+- Formato: `pacote@versão` (ex: `next@15.2.1`, `prisma@6.5.0`)
 - Justificar escolhas não óbvias
-- Se o usuário especificou a stack no PRD: usar exatamente o que foi especificado
-- Se não especificou: usar padrões modernos e justificar
+- Se o usuário especificou a stack no PRD: usar exatamente o que foi especificado — e verificar a versão atual do que foi especificado
+- Se não especificou: usar padrões modernos, verificar versão atual e justificar
 
 **Seção 4 — Arquitetura da Solução**
 - Diagrama em texto (ASCII ou Mermaid) quando a relação entre componentes for complexa
