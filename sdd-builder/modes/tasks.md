@@ -26,9 +26,29 @@ Glob .ai/product/tasks/*.md        → identificar última numeração usada
 
 ### Argumento opcional: número ou path de feature
 
-- `/sdd-builder tasks` — sem argumento: gera tasks para o produto inteiro (Cenário A)
-- `/sdd-builder tasks 001` — com número: gera tasks só para a feature `001` (Cenário B)
+- `/sdd-builder tasks` — sem argumento: Cenário A (produto inteiro) ou pergunta se há features
+- `/sdd-builder tasks 001` — com número: Cenário B (só feature 001)
 - `/sdd-builder tasks features/001-nome.md` — com path explícito: idem
+
+### Resolução do ID de feature
+
+Mesma lógica do modo `design` — aplicar antes de determinar o cenário:
+
+1. Glob `features/*.md` para listar arquivos existentes
+2. Match pelo prefixo numérico ou nome parcial
+3. **Match único:** usar e confirmar ao usuário
+4. **Nenhum match:**
+   ```
+   Feature "001" não encontrada em .ai/product/features/
+
+   Features disponíveis:
+   - 002-notificacoes-email.md
+   - 003-kanban-projetos.md
+
+   Qual delas você quer usar?
+   ```
+5. **Match ambíguo (2+ resultados):** listar os candidatos e pedir escolha
+6. **`features/` vazia e ID passado:** orientar a rodar `feature` primeiro
 
 ### Determinação do cenário
 
@@ -36,7 +56,8 @@ Glob .ai/product/tasks/*.md        → identificar última numeração usada
 |-------------------|--------------------------|---------|
 | Nenhum | Não | A — produto inteiro |
 | Nenhum | Sim | Perguntar: "Gerar tasks para o produto inteiro ou para uma feature específica? [lista]" |
-| Número ou path de feature | — | B — só essa feature |
+| ID/path resolvido com sucesso | — | B — só essa feature |
+| ID não resolvido | — | Erro → mostrar features disponíveis |
 
 Se `design.md` não existir: interromper e orientar a rodar `design` primeiro.
 

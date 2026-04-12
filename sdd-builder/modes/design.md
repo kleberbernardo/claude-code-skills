@@ -25,13 +25,47 @@ Glob .ai/product/features/*.md   → listar features existentes
 
 Se um argumento for passado explicitamente (`@arquivo` ou número de feature), ele tem precedência sobre a descoberta.
 
+### Resolução do ID de feature
+
+Quando um argumento é passado (ex: `001`, `1`, `exportacao`, `001-exportacao`):
+
+1. Glob `features/*.md` para listar todos os arquivos existentes
+2. Tentar match pelo prefixo numérico ou pelo nome parcial do argumento
+3. **Se encontrar exatamente 1 match:** usar esse arquivo, confirmar ao usuário:
+   ```
+   Usando feature: 001-exportacao-relatorios.md
+   ```
+4. **Se não encontrar nenhum match:**
+   ```
+   Feature "001" não encontrada em .ai/product/features/
+
+   Features disponíveis:
+   - 001-exportacao-relatorios.md
+   - 002-notificacoes-email.md
+
+   Qual delas você quer usar?
+   ```
+5. **Se encontrar mais de 1 match** (ex: busca parcial ambígua):
+   ```
+   Mais de uma feature corresponde a "notif":
+   - 002-notificacoes-email.md
+   - 003-notificacoes-push.md
+
+   Qual delas?
+   ```
+6. **Se `features/` não existir ou estiver vazia** e um ID foi passado:
+   ```
+   Nenhuma feature encontrada em .ai/product/features/
+   Execute /sdd-builder feature primeiro para criar uma.
+   ```
+
 ### Determinação do cenário
 
 | Situação encontrada | Cenário |
 |--------------------|---------|
-| `prd.md` existe, sem `features/` ou sem argumento de feature | A — produto novo |
-| Feature spec passada como argumento (`001` ou `@features/001-nome.md`) | B — feature incremental |
-| `features/` tem arquivos e nenhum foi especificado | Perguntar: "Para qual feature gero o design? [lista]" |
+| `prd.md` existe, sem argumento de feature | A — produto novo |
+| Argumento de feature passado e resolvido com sucesso | B — feature incremental |
+| `features/` tem arquivos e nenhum foi especificado | Perguntar: "Para qual feature? [lista]" |
 | Nenhum artefato encontrado | Interromper: orientar a rodar `spec` ou `feature` primeiro |
 
 ---
