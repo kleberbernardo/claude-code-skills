@@ -10,6 +10,10 @@ Transforma uma ideia em documentação estruturada, completa e executável via e
 
 Todos os modos fazem **auto-descoberta** dos artefatos em `.ai/product/` — não é necessário passar caminhos de arquivo.
 
+```bash
+/sdd-builder status   # ver o estado atual do projeto a qualquer momento
+```
+
 ### Produto novo (greenfield)
 
 ```bash
@@ -34,8 +38,9 @@ Todos os modos fazem **auto-descoberta** dos artefatos em `.ai/product/` — nã
 |------|------------|---------|-------|
 | `spec` | Produto novo, do zero | Entrevista interativa | `prd.md` + `ux.md` (opcional) |
 | `feature` | Feature em produto existente | Entrevista + artefatos existentes | `features/NNN.md` + atualiza `prd.md`, `ux.md` |
-| `design` | Após spec ou feature | `prd.md` + `ux.md` opcional | `design.md` (criado ou atualizado) |
-| `tasks` | Após design | `prd.md` + `design.md` + `ux.md` opcional | `tasks/*.md` (criadas ou adicionadas) |
+| `design` | Após spec ou feature | Auto-descoberta | `design.md` (criado ou atualizado) |
+| `tasks` | Após design | Auto-descoberta | `tasks/*.md` (criadas ou adicionadas) |
+| `status` | A qualquer momento | Auto-descoberta | Relatório visual no terminal |
 
 ---
 
@@ -164,6 +169,7 @@ sdd-builder/
     feature.md                ← fluxo do modo FEATURE (incremental)
     design.md                 ← fluxo do modo DESIGN
     tasks.md                  ← fluxo do modo TASKS
+    status.md                 ← fluxo do modo STATUS
   templates/
     prd-template.md           ← PRD (19 seções)
     feature-template.md       ← Feature Spec (12 seções)

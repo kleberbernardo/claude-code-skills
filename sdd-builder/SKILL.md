@@ -1,7 +1,7 @@
 ---
 name: sdd-builder
 description: Spec-Driven Development — transforma uma ideia em documentação estruturada, completa e executável via entrevista interativa → PRD → Design Técnico → Tasks detalhadas. Pronto para execução por agentes RPI.
-argument-hint: "<spec|feature|design|tasks> [feature-number]"
+argument-hint: "<spec|feature|design|tasks|status> [feature-number]"
 allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch
 ---
 
@@ -31,6 +31,7 @@ Todos os modos fazem **auto-descoberta** dos artefatos em `.ai/product/` — nã
 | `design` | `/sdd-builder design 001` | Feature específica | `design.md` atualizado com feature 001 |
 | `tasks` | `/sdd-builder tasks` | Após design (produto inteiro) | `tasks/*.md` |
 | `tasks` | `/sdd-builder tasks 001` | Tasks só da feature 001 | `tasks/NNN-*.md` adicionados |
+| `status` | `/sdd-builder status` | Qualquer momento | Relatório visual do estado atual |
 
 > **Greenfield**: `spec` → `design` → `tasks`  
 > **Incremental**: `feature` → `design 001` → `tasks 001`
@@ -59,6 +60,7 @@ Cada modo executa `Glob .ai/product/**` antes de qualquer ação e lê automatic
 - `modes/feature.md` — fluxo completo do modo FEATURE (feature incremental)
 - `modes/design.md` — fluxo completo do modo DESIGN
 - `modes/tasks.md` — fluxo completo do modo TASKS
+- `modes/status.md` — fluxo completo do modo STATUS
 
 ### Templates
 - `templates/prd-template.md` — template do PRD
@@ -138,7 +140,7 @@ Cada modo executa `Glob .ai/product/**` antes de qualquer ação e lê automatic
 
 ## Início da Execução
 
-1. Identificar o modo pelo argumento (`spec`, `feature`, `design`, `tasks`)
+1. Identificar o modo pelo argumento (`spec`, `feature`, `design`, `tasks`, `status`)
 2. Ler o arquivo de modo correspondente em `modes/`
 3. Se modo `design` ou `tasks`: verificar e ler arquivos de entrada obrigatórios
 4. Executar o fluxo do modo seguindo as instruções internas
