@@ -8,33 +8,22 @@ Transforma uma ideia em documentação estruturada, completa e executável via e
 
 ## Uso
 
+Todos os modos fazem **auto-descoberta** dos artefatos em `.ai/product/` — não é necessário passar caminhos de arquivo.
+
 ### Produto novo (greenfield)
 
 ```bash
-# 1. Entrevista interativa → PRD + UX Visual (opcional)
-/sdd-builder spec
-
-# 2. PRD → Design Técnico
-/sdd-builder design @.ai/product/prd.md
-/sdd-builder design @.ai/product/prd.md @.ai/product/ux.md   # com UX
-
-# 3. PRD + Design → Tasks executáveis
-/sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md
-/sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md @.ai/product/ux.md
+/sdd-builder spec     # entrevista → gera prd.md + ux.md
+/sdd-builder design   # lê prd.md + ux.md automaticamente → gera design.md
+/sdd-builder tasks    # lê prd.md + design.md + ux.md automaticamente → gera tasks/
 ```
 
 ### Feature em produto existente (incremental)
 
 ```bash
-# 1. Entrevistar sobre a feature nova → Feature Spec + atualiza prd/ux/design
-/sdd-builder feature
-/sdd-builder feature @.ai/product/prd.md   # com PRD existente
-
-# 2. Atualizar o design técnico
-/sdd-builder design @.ai/product/prd.md @.ai/product/features/001-nome.md
-
-# 3. Gerar tasks da feature
-/sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md @.ai/product/features/001-nome.md
+/sdd-builder feature        # descobre prd.md existente → entrevista da feature → gera features/001-nome.md
+/sdd-builder design 001     # atualiza design.md com a feature 001
+/sdd-builder tasks 001      # gera tasks da feature 001 (numeração continuada)
 ```
 
 ---
@@ -59,13 +48,15 @@ Ideia
   ↓
 /sdd-builder spec
   ↓ entrevista em 5 fases (19 blocos) + fase UX visual opcional
-prd.md  ux.md (opcional)
+  ↓ auto-salva prd.md + ux.md em .ai/product/
   ↓
-/sdd-builder design @prd.md [@ux.md]
+/sdd-builder design
+  ↓ auto-descobre prd.md + ux.md
   ↓ verifica versões mais recentes da stack via WebSearch
-design.md
+  ↓ auto-salva design.md
   ↓
-/sdd-builder tasks @prd.md @design.md [@ux.md]
+/sdd-builder tasks
+  ↓ auto-descobre prd.md + design.md + ux.md
   ↓
 tasks/001-nome.md
 tasks/002-nome.md
@@ -78,18 +69,20 @@ Execução com /rpi-builder
 ```
 Produto existente + nova necessidade
   ↓
-/sdd-builder feature [@prd.md]
-  ↓ entrevista de contexto (se sem prd.md) + 7 blocos da feature + UX delta
-features/001-nome.md
-prd.md atualizado (escopo + user stories)
-ux.md atualizado (novas telas/componentes — se houver)
+/sdd-builder feature
+  ↓ auto-descobre prd.md + ux.md + design.md existentes
+  ↓ entrevista da feature (7 blocos) + UX delta
+  ↓ auto-salva features/001-nome.md
+  ↓ atualiza prd.md (escopo + user stories)
+  ↓ atualiza ux.md (novas telas/componentes — se houver)
   ↓
-/sdd-builder design @prd.md @features/001-nome.md
+/sdd-builder design 001
+  ↓ auto-descobre todos artefatos + usa feature 001
   ↓ atualiza design.md in-place, marca [NOVO - feature 001]
-design.md atualizado
   ↓
-/sdd-builder tasks @prd.md @design.md @features/001-nome.md
-  ↓ tasks numeradas sequencialmente a partir da última existente
+/sdd-builder tasks 001
+  ↓ auto-descobre todos artefatos + usa feature 001
+  ↓ numeração sequencial a partir da última task existente
 tasks/009-nome.md
 tasks/010-nome.md
   ↓

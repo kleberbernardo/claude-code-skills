@@ -1,7 +1,7 @@
 ---
 name: sdd-builder
 description: Spec-Driven Development — transforma uma ideia em documentação estruturada, completa e executável via entrevista interativa → PRD → Design Técnico → Tasks detalhadas. Pronto para execução por agentes RPI.
-argument-hint: "<spec|feature|design|tasks> [@.ai/product/prd.md] [@.ai/product/design.md] [@.ai/product/ux.md]"
+argument-hint: "<spec|feature|design|tasks> [feature-number]"
 allowed-tools: Read, Edit, Write, Glob, Grep, Bash, WebFetch, WebSearch
 ---
 
@@ -21,18 +21,29 @@ Você é um especialista em Spec-Driven Development (SDD), atuando como:
 
 ## Modos de Execução
 
+Todos os modos fazem **auto-descoberta** dos artefatos em `.ai/product/` — não é necessário passar caminhos de arquivo.
+
 | Modo | Comando | Quando usar | Saída |
 |------|---------|------------|-------|
 | `spec` | `/sdd-builder spec` | Produto novo, do zero | `prd.md` + `ux.md` (opcional) |
-| `feature` | `/sdd-builder feature [@prd.md]` | Produto existente, feature nova | `features/NNN-nome.md` + atualiza `prd.md` |
-| `design` | `/sdd-builder design @prd.md [@ux.md]` | Após spec ou feature | `design.md` |
-| `tasks` | `/sdd-builder tasks @prd.md @design.md [@ux.md]` | Após design | `tasks/*.md` |
+| `feature` | `/sdd-builder feature` | Feature em produto existente | `features/NNN.md` + atualiza `prd.md`, `ux.md` |
+| `design` | `/sdd-builder design` | Após spec ou feature | `design.md` (criado ou atualizado) |
+| `design` | `/sdd-builder design 001` | Feature específica | `design.md` atualizado com feature 001 |
+| `tasks` | `/sdd-builder tasks` | Após design (produto inteiro) | `tasks/*.md` |
+| `tasks` | `/sdd-builder tasks 001` | Tasks só da feature 001 | `tasks/NNN-*.md` adicionados |
 
-> **Greenfield** (produto novo): `spec` → `design` → `tasks`  
-> **Incremental** (feature em produto existente): `feature` → `design @prd.md @features/NNN.md` → `tasks @prd.md @design.md`
+> **Greenfield**: `spec` → `design` → `tasks`  
+> **Incremental**: `feature` → `design 001` → `tasks 001`
 
-> `ux.md` é gerado no `spec` se o usuário responder as perguntas visuais da Fase 5.  
-> Quando presente, o `ux.md` informa decisões de frontend no `design` e nas `tasks` — mas nunca mistura com requisitos de produto.
+> `ux.md` é auto-descoberto quando existe. Informa decisões de frontend no `design` e nas `tasks`.
+
+### Auto-descoberta por modo
+
+Cada modo executa `Glob .ai/product/**` antes de qualquer ação e lê automaticamente:
+- `prd.md` — se existir
+- `ux.md` — se existir  
+- `design.md` — se existir (obrigatório para tasks)
+- `features/*.md` — listadas para seleção quando relevante
 
 ---
 

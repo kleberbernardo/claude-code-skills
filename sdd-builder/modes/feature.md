@@ -38,7 +38,18 @@ Gerar um Feature Spec focado — documento completo de uma funcionalidade increm
 
 ## Passo 1: Contexto do Produto Existente
 
-### Se `.ai/product/prd.md` existe (ou foi passado como argumento):
+### Auto-descoberta (sempre executada primeiro)
+
+```
+Glob .ai/product/prd.md          → usar se existir
+Glob .ai/product/ux.md           → usar se existir
+Glob .ai/product/design.md       → usar se existir
+Glob .ai/product/features/*.md   → listar features existentes para numeração
+```
+
+Não é necessário passar argumentos. Se um arquivo for passado explicitamente, ele tem precedência.
+
+### Se `.ai/product/prd.md` existe:
 
 Ler o prd.md completo. Extrair:
 - Nome e proposta de valor do produto

@@ -10,20 +10,35 @@ Transformar o PRD + Design em um conjunto de tasks pequenas, sequenciais, indepe
 
 ---
 
-## Pré-requisitos
+## Pré-requisitos e Auto-descoberta
 
-Aceita dois cenários:
+**Não é necessário passar arquivos como argumento.** O modo tasks descobre automaticamente o que existe em `.ai/product/`.
 
-**Cenário A — Produto novo:**
-- `.ai/product/prd.md` + `.ai/product/design.md` obrigatórios
-- `.ai/product/ux.md` opcional
+### Descoberta automática (executada antes de qualquer coisa)
 
-**Cenário B — Feature incremental:**
-- `.ai/product/features/NNN-nome.md` + `.ai/product/design.md` obrigatórios
-- `.ai/product/prd.md` opcional (contexto)
-- `.ai/product/ux.md` opcional
+```
+Glob .ai/product/prd.md            → usar se existir
+Glob .ai/product/design.md         → obrigatório — interromper se não existir
+Glob .ai/product/ux.md             → usar se existir
+Glob .ai/product/features/*.md     → listar features existentes
+Glob .ai/product/tasks/*.md        → identificar última numeração usada
+```
 
-Se nenhum artefato de spec existir: interromper e orientar.
+### Argumento opcional: número ou path de feature
+
+- `/sdd-builder tasks` — sem argumento: gera tasks para o produto inteiro (Cenário A)
+- `/sdd-builder tasks 001` — com número: gera tasks só para a feature `001` (Cenário B)
+- `/sdd-builder tasks features/001-nome.md` — com path explícito: idem
+
+### Determinação do cenário
+
+| Argumento passado | `features/` tem arquivos | Cenário |
+|-------------------|--------------------------|---------|
+| Nenhum | Não | A — produto inteiro |
+| Nenhum | Sim | Perguntar: "Gerar tasks para o produto inteiro ou para uma feature específica? [lista]" |
+| Número ou path de feature | — | B — só essa feature |
+
+Se `design.md` não existir: interromper e orientar a rodar `design` primeiro.
 
 ### Regras para Cenário B (feature incremental)
 

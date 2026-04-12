@@ -10,33 +10,43 @@ Traduzir requisitos de produto em arquitetura técnica concreta, sem lacunas, pr
 
 ---
 
-## Pré-requisitos
+## Pré-requisitos e Auto-descoberta
 
-Aceita dois cenários de entrada:
+**Não é necessário passar arquivos como argumento.** O modo design descobre automaticamente o que existe em `.ai/product/`.
 
-**Cenário A — Produto novo (após `spec`):**
-- `.ai/product/prd.md` deve existir e estar completo
-- `.ai/product/ux.md` é opcional
+### Descoberta automática (executada antes de qualquer coisa)
 
-**Cenário B — Feature incremental (após `feature`):**
-- `.ai/product/features/NNN-nome.md` deve existir
-- `.ai/product/prd.md` é opcional (lido como contexto se existir)
-- `.ai/product/design.md` existente deve ser lido para entender arquitetura atual
+```
+Glob .ai/product/prd.md          → usar se existir
+Glob .ai/product/ux.md           → usar se existir
+Glob .ai/product/design.md       → usar se existir (modo incremental)
+Glob .ai/product/features/*.md   → listar features existentes
+```
 
-Se nenhum dos dois existir: interromper e orientar a executar `spec` ou `feature` primeiro.
+Se um argumento for passado explicitamente (`@arquivo` ou número de feature), ele tem precedência sobre a descoberta.
+
+### Determinação do cenário
+
+| Situação encontrada | Cenário |
+|--------------------|---------|
+| `prd.md` existe, sem `features/` ou sem argumento de feature | A — produto novo |
+| Feature spec passada como argumento (`001` ou `@features/001-nome.md`) | B — feature incremental |
+| `features/` tem arquivos e nenhum foi especificado | Perguntar: "Para qual feature gero o design? [lista]" |
+| Nenhum artefato encontrado | Interromper: orientar a rodar `spec` ou `feature` primeiro |
 
 ---
 
 ## Fluxo de Execução
 
 ```
-1. Identificar o cenário (A ou B) pelos arquivos passados como argumento
-2. Ler todos os artefatos disponíveis (prd, feature spec, design existente, ux)
-3. Se Cenário B: verificar arquitetura existente para não conflitar
-4. Verificar versões da stack (Passo 1c)
-5. Estruturar o design seguindo templates/design-template.md
-6. Salvar em .ai/product/design.md
-7. Confirmar e indicar próximo passo
+1. Auto-descoberta: glob .ai/product/ e mapear artefatos existentes
+2. Determinar cenário (A ou B) — ver tabela acima
+3. Ler todos os artefatos descobertos
+4. Se Cenário B: verificar arquitetura existente para não conflitar
+5. Verificar versões da stack (Passo 1c)
+6. Estruturar o design seguindo templates/design-template.md
+7. Salvar em .ai/product/design.md
+8. Confirmar e indicar próximo passo
 ```
 
 ### Regras para Cenário B (feature incremental)
