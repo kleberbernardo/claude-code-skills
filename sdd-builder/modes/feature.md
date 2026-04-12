@@ -21,15 +21,17 @@ Gerar um Feature Spec focado — documento completo de uma funcionalidade increm
 ## Fluxo de Execução
 
 ```
-1. Verificar existência do prd.md
+1. Verificar existência do prd.md (e ux.md, design.md)
    ├── Existe → ler e extrair contexto do produto
-   └── Não existe → conduzir mini-entrevista de contexto (3–5 trocas)
+   └── Não existe → conduzir entrevista de contexto até estar claro
 2. Perguntar qual feature o usuário quer adicionar
-3. Conduzir entrevista focada na feature (7 blocos)
-4. Gerar o Feature Spec usando templates/feature-template.md
-5. Salvar em .ai/product/features/NNN-nome-da-feature.md
-6. Se prd.md existir: atualizar seção de Escopo e User Stories
-7. Confirmar e indicar próximo passo
+3. Conduzir entrevista focada na feature (7 blocos funcionais)
+4. Se ux.md existe: conduzir entrevista UX incremental (novas telas/componentes)
+5. Gerar o Feature Spec usando templates/feature-template.md
+6. Salvar em .ai/product/features/NNN-nome-da-feature.md
+7. Se prd.md existir: atualizar seção de Escopo e User Stories
+8. Se ux.md existir e a feature adiciona telas/componentes: atualizar ux.md
+9. Confirmar e indicar próximo passo
 ```
 
 ---
@@ -78,6 +80,14 @@ Entendido. Agora me conta: que funcionalidade nova você quer adicionar?
 
 ---
 
+## Passo 1b: Leitura de Artefatos Existentes
+
+Além do prd.md, verificar e ler:
+- `design.md` — para entender a arquitetura atual antes de gerar
+- `ux.md` — para entender o estilo visual estabelecido antes de perguntar sobre UX da feature
+
+---
+
 ## Passo 2: Entrevista da Feature
 
 Seguir `core/interview-rules.md` (uma pergunta por vez, aprofundar até estar claro).
@@ -115,6 +125,29 @@ Seguir `core/interview-rules.md` (uma pergunta por vez, aprofundar até estar cl
 ### Bloco 7 — Fora de escopo
 - O que você explicitamente NÃO quer nessa implementação?
 - Tem alguma extensão óbvia que deve ficar para depois?
+
+---
+
+## Passo 2b: Entrevista UX Incremental (se ux.md existe)
+
+Se o produto já tem um `ux.md`, a identidade visual está estabelecida — não perguntar de novo sobre cores, tipografia ou referências. Apenas cobrir o que a feature adiciona.
+
+Avisar o usuário antes:
+```
+O produto já tem um UX definido. Vou só perguntar sobre o que essa feature adiciona visualmente.
+```
+
+### Perguntas UX para a feature (apenas o delta):
+
+**Novas telas:**
+- Essa feature adiciona alguma tela ou página nova? Se sim, me descreve o que tem nela e o que o usuário precisa sentir ao vê-la.
+- Tem algum estado vazio ou estado de carregamento específico dessa tela?
+
+**Novos componentes:**
+- Essa feature usa algum componente de UI que o produto ainda não tem — ex: gráfico, kanban, editor, calendário, upload?
+- Tem alguma interação específica que precisa de atenção — ex: drag and drop, seleção múltipla, preview em tempo real?
+
+**Se o usuário responder que não há nada novo visualmente:** não atualizar o ux.md. Registrar como `[sem alterações visuais — feature opera em telas existentes]`.
 
 ---
 
@@ -167,6 +200,31 @@ Se um `prd.md` foi lido no Passo 1:
 
 ---
 
+## Passo 6b: Atualizar ux.md (se existir e houver delta visual)
+
+Se o `ux.md` existe E a entrevista do Passo 2b revelou novas telas ou componentes:
+
+**O que atualizar — apenas as seções afetadas:**
+
+| Seção do ux.md | Quando atualizar |
+|---------------|-----------------|
+| Seção 6 — Componentes e Padrões de UI | Feature usa componente novo (kanban, gráfico, editor...) |
+| Seção 7 — Telas-Chave Descritas | Feature adiciona tela nova |
+
+**Como atualizar:**
+- Inserir o novo conteúdo na seção correta
+- Marcar com `<!-- [NOVO - feature NNN] -->` inline
+- Não modificar telas, componentes ou seções já existentes
+
+**O que NÃO atualizar:**
+- Seção 1 (Personalidade Visual) — identidade não muda por feature
+- Seção 2 (Referências) — referências do produto são estáveis
+- Seção 3 (Paleta de Cores) — cores não mudam por feature
+- Seção 4 (Tipografia) — idem
+- Seção 5 (Densidade e Layout) — padrão global, não por feature
+
+---
+
 ## Passo 7: Confirmar e Indicar Próximo Passo
 
 Exibir o fluxo completo para que o usuário saiba o que vem depois:
@@ -174,6 +232,7 @@ Exibir o fluxo completo para que o usuário saiba o que vem depois:
 ```
 ✅ Feature Spec: .ai/product/features/NNN-nome.md
 ✅ prd.md atualizado (escopo + user stories)    ← só se prd.md existe
+✅ ux.md atualizado (telas + componentes novos) ← só se havia delta visual
 
 ─────────────────────────────────────────────
 Próximos passos:
