@@ -1,7 +1,7 @@
 ---
 name: rpi-builder
 description: Execução disciplinada de tarefas via Research → Plan → Implement. Opera sobre artefatos SDD existentes (.ai/product/). Nunca implementa sem plano, nunca planeja sem pesquisa, nunca expande escopo.
-argument-hint: "<research|plan|implement|status|next> [@.ai/product/tasks/NNN-task.md | @.ai/product/plans/NNN-task.md]"
+argument-hint: "<research|plan|implement|status|next> [task-id]"
 allowed-tools: Read, Edit, Write, Glob, Grep, Bash
 ---
 
@@ -19,11 +19,54 @@ Seu papel é **executar**, não redefinir. O escopo já foi definido. A arquitet
 
 | Modo | Comando | Entrada | Saída |
 |------|---------|---------|-------|
-| `research` | `/rpi-builder research @task` | Task file | `.ai/product/research/NNN-task.md` |
-| `plan` | `/rpi-builder plan @task` | Task + research | `.ai/product/plans/NNN-task.md` |
-| `implement` | `/rpi-builder implement @plan` | Plan file | Código implementado + task atualizada |
-| `status` | `/rpi-builder status` | Pasta tasks/ | Tabela de progresso |
+| `research` | `/rpi-builder research 001` | Task 001 | `.ai/product/research/001-task.md` |
+| `plan` | `/rpi-builder plan 001` | Task 001 + research 001 | `.ai/product/plans/001-task.md` |
+| `implement` | `/rpi-builder implement 001` | Plano 001 | Código implementado + task atualizada |
+| `status` | `/rpi-builder status` | Pastas tasks/research/plans/ | Tabela de progresso |
 | `next` | `/rpi-builder next` | Pastas tasks/research/plans/ | Próximo comando sugerido |
+
+> **O ID é sempre o número da task (ex: `001`).** Cada modo sabe qual pasta usar internamente.
+> - `research 001` e `plan 001` → resolvem em `tasks/001-*.md`
+> - `implement 001` → resolve em `plans/001-*.md` (o plano, não a task)
+
+---
+
+## Resolução de ID
+
+Ao receber um ID numérico como argumento, cada modo executa:
+
+```
+1. Glob na pasta correta para o modo:
+   - research: .ai/product/tasks/001-*.md
+   - plan:     .ai/product/tasks/001-*.md
+   - implement: .ai/product/plans/001-*.md
+
+2. Match único encontrado → usar e confirmar ao usuário
+
+3. Nenhum match encontrado → exibir:
+   "Task 001 não encontrada.
+
+   Tasks disponíveis:
+   - 002 — login-endpoint
+   - 003 — user-schema
+   (use /rpi-builder status para ver o estado completo)"
+
+4. Nenhum ID passado → orientar:
+   "Informe o ID da task. Use /rpi-builder next para ver o próximo passo sugerido."
+```
+
+### Tratamento de task já concluída
+
+Se o ID existe mas a task já tem `Status: done`:
+
+```
+⚠️ Task 001 já está concluída (Status: done).
+
+Se quiser reexecutar esta fase, confirme explicitamente.
+Para ver o próximo passo: /rpi-builder next
+```
+
+Não prosseguir automaticamente — aguardar confirmação do usuário.
 
 ---
 

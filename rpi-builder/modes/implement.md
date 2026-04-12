@@ -10,12 +10,33 @@ Transformar o plan.md em código funcionando, testado e validado — sem desviar
 
 ---
 
+## Resolução do ID
+
+O argumento é sempre um número de task (ex: `001`). **Neste modo, o ID aponta para o plano — não para a task.**
+
+```
+1. Glob .ai/product/plans/NNN-*.md
+2. Match único → usar e confirmar ao usuário o nome completo encontrado
+3. Nenhum match → exibir lista de planos disponíveis:
+   "Plano 001 não encontrado. Execute primeiro: /rpi-builder plan 001
+
+   Planos disponíveis:
+   - 002 — login-endpoint
+   - 003 — user-schema"
+4. Nenhum ID passado → orientar a usar /rpi-builder next
+5. Task com Status: done → avisar:
+   "⚠️ Task 001 já está implementada (Status: done).
+   Se quiser reimplementar, confirme explicitamente."
+```
+
+---
+
 ## Pré-requisitos
 
-1. Verificar que o arquivo do plano existe
-2. Derivar o path da task do plano (seção de referências)
+1. Resolver o ID para o arquivo do plano via Glob `plans/NNN-*.md` (ver acima)
+2. Derivar o ID da task do plano (mesmo número) → Glob `tasks/NNN-*.md`
 3. Verificar que a task existe
-4. Verificar que o research existe
+4. Verificar que o research existe: Glob `research/NNN-*.md`
 5. Verificar que o plano tem as seções obrigatórias
 6. Se qualquer pré-requisito falhar: parar e informar
 

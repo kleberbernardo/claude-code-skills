@@ -12,12 +12,26 @@ O plan.md é o contrato da implementação. O implementador (humano ou agente) s
 
 ---
 
+## Resolução do ID
+
+O argumento é sempre um número de task (ex: `001`). Antes de qualquer ação:
+
+```
+1. Glob .ai/product/tasks/NNN-*.md
+2. Match único → usar e confirmar ao usuário o nome completo encontrado
+3. Nenhum match → exibir lista de tasks disponíveis e parar
+4. Nenhum ID passado → orientar a usar /rpi-builder next
+5. Task com Status: done → avisar e aguardar confirmação antes de refazer
+```
+
+---
+
 ## Pré-requisitos
 
-1. Verificar que o arquivo da task existe
-2. Verificar que o research correspondente existe
+1. Resolver o ID para o arquivo da task (ver acima)
+2. Verificar que o research correspondente existe: Glob `.ai/product/research/NNN-*.md`
    - Se não existir: interromper com mensagem:
-     `Research não encontrado. Execute primeiro: /rpi-builder research @task`
+     `Research não encontrado. Execute primeiro: /rpi-builder research 001`
 3. Verificar que `.ai/product/prd.md` existe
 4. Verificar que `.ai/product/design.md` existe
 5. Criar pasta `.ai/product/plans/` se não existir
@@ -169,7 +183,7 @@ Antes de salvar, verificar:
 ```
 ✅ Plano salvo em .ai/product/plans/001-task-name.md
 
-Próximo passo: /rpi-builder implement @.ai/product/plans/001-task-name.md
+Próximo passo: /rpi-builder implement 001
 ```
 
 ---

@@ -8,22 +8,27 @@ Opera sobre artefatos gerados pelo `sdd-builder` ou qualquer task bem definida.
 
 ## Uso
 
+O argumento é sempre o **ID numérico da task** (ex: `001`). Cada modo sabe qual pasta usar internamente.
+
 ```bash
+# Descobrir próximo passo (começo recomendado)
+/rpi-builder next
+
 # Pesquisar o codebase antes de planejar
-/rpi-builder research @.ai/product/tasks/001-task-name.md
+/rpi-builder research 001
 
 # Gerar plano técnico executável
-/rpi-builder plan @.ai/product/tasks/001-task-name.md
+/rpi-builder plan 001
 
 # Executar a implementação
-/rpi-builder implement @.ai/product/plans/001-task-name.md
+/rpi-builder implement 001
 
 # Ver estado atual de todas as tasks
 /rpi-builder status
-
-# Descobrir próximo passo
-/rpi-builder next
 ```
+
+> **`research 001` e `plan 001`** resolvem em `tasks/001-*.md`  
+> **`implement 001`** resolve em `plans/001-*.md` — é o plano que guia a implementação, não a task diretamente
 
 ---
 
@@ -32,14 +37,39 @@ Opera sobre artefatos gerados pelo `sdd-builder` ou qualquer task bem definida.
 ```
 Task definida
     ↓
-/rpi-builder research @task   →  .ai/product/research/NNN.md
+/rpi-builder research 001   →  .ai/product/research/001-task.md
     ↓
-/rpi-builder plan @task       →  .ai/product/plans/NNN.md
+/rpi-builder plan 001       →  .ai/product/plans/001-task.md
     ↓
-/rpi-builder implement @plan  →  código + task atualizada
+/rpi-builder implement 001  →  código + task atualizada
 ```
 
 Nenhuma etapa pode ser pulada.
+
+---
+
+## Resolução de ID
+
+Se o ID passado não existir:
+
+```
+Task 005 não encontrada.
+
+Tasks disponíveis:
+- 001 — setup-projeto
+- 002 — schema-usuario
+- 003 — auth-login
+
+Use /rpi-builder status para ver o estado completo.
+```
+
+Se a task já estiver concluída (`Status: done`):
+
+```
+⚠️ Task 001 já está concluída (Status: done).
+Se quiser reexecutar esta fase, confirme explicitamente.
+Para ver o próximo passo: /rpi-builder next
+```
 
 ---
 

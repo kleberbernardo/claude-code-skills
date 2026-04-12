@@ -62,37 +62,37 @@ Se nenhuma task pendente:
 ### Caso 1 — Research pendente
 
 ```
-Next: Task 001 - Setup Auth
+Next: Task 001 — setup-auth
 Phase: Research
 
-The task has no research file yet. Research the codebase before planning.
+Nenhum research encontrado. Pesquise o codebase antes de planejar.
 
-Command:
-/rpi-builder research @.ai/product/tasks/001-setup-auth.md
+Comando:
+/rpi-builder research 001
 ```
 
 ### Caso 2 — Plan pendente
 
 ```
-Next: Task 001 - Setup Auth
+Next: Task 001 — setup-auth
 Phase: Plan
 
-Research is done. Generate the technical plan before implementing.
+Research concluído. Gere o plano técnico antes de implementar.
 
-Command:
-/rpi-builder plan @.ai/product/tasks/001-setup-auth.md
+Comando:
+/rpi-builder plan 001
 ```
 
 ### Caso 3 — Implement pendente
 
 ```
-Next: Task 001 - Setup Auth
+Next: Task 001 — setup-auth
 Phase: Implement
 
-Plan is ready. Execute the implementation.
+Plano pronto. Execute a implementação.
 
-Command:
-/rpi-builder implement @.ai/product/plans/001-setup-auth.md
+Comando:
+/rpi-builder implement 001
 ```
 
 ### Caso 4 — Task in-progress (sessão retomada)
@@ -100,22 +100,22 @@ Command:
 Quando uma task está `in-progress` e já tem research e plan mas implementation ainda não está done:
 
 ```
-Next: Task 002 - Login Endpoint
+Next: Task 002 — login-endpoint
 Phase: Implement
-Note: This task was in progress. The plan exists — continue from where it stopped.
+Nota: Esta task estava em andamento. O plano existe — continue de onde parou.
 
-Command:
-/rpi-builder implement @.ai/product/plans/002-login-endpoint.md
+Comando:
+/rpi-builder implement 002
 ```
 
 ### Caso 5 — Tudo concluído
 
 ```
-All tasks are completed. ✅
+Todas as tasks estão concluídas. ✅
 
 Total: N tasks done.
 
-Next: consider running /sdd-builder tasks if new features were added to the PRD.
+Próximo: considere /sdd-builder feature se novas funcionalidades forem adicionadas ao produto.
 ```
 
 ---

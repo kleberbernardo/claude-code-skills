@@ -12,10 +12,24 @@ Não planejar. Não implementar. Apenas entender.
 
 ---
 
+## Resolução do ID
+
+O argumento é sempre um número de task (ex: `001`). Antes de qualquer ação:
+
+```
+1. Glob .ai/product/tasks/NNN-*.md
+2. Match único → usar e confirmar ao usuário o nome completo encontrado
+3. Nenhum match → exibir lista de tasks disponíveis e parar
+4. Nenhum ID passado → orientar a usar /rpi-builder next
+5. Task com Status: done → avisar e aguardar confirmação antes de refazer
+```
+
+---
+
 ## Pré-requisitos
 
-1. Verificar que o arquivo da task existe
-2. Verificar se research já existe — se existir, perguntar ao usuário se deve ser refeito
+1. Resolver o ID para o arquivo da task (ver acima)
+2. Verificar se research já existe (`.ai/product/research/NNN-*.md`) — se existir, perguntar ao usuário se deve ser refeito
 3. Criar pasta `.ai/product/research/` se não existir
 
 ---
@@ -144,7 +158,7 @@ Usar `templates/research-template.md` como estrutura.
 ```
 ✅ Research salvo em .ai/product/research/001-task-name.md
 
-Próximo passo: /rpi-builder plan @.ai/product/tasks/001-task-name.md
+Próximo passo: /rpi-builder plan 001
 ```
 
 ---
