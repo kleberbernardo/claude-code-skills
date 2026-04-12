@@ -54,19 +54,22 @@ Que funcionalidade nova você quer adicionar?
 
 ### Se `prd.md` não existe:
 
-Fazer mini-entrevista de contexto (máximo 5 trocas, sem aprofundamento):
+Conduzir entrevista de contexto — sem limite fixo de trocas, aprofundar até entender o produto com clareza suficiente para especificar a feature.
 
 ```
 Você tem um produto existente mas sem PRD documentado.
 Me conta em uma frase o que o produto faz e quem usa.
 ```
 
-Cobrir em no máximo 5 trocas:
-1. O que é o produto e para quem
-2. Quais funcionalidades principais já existem
-3. Qual é o stack técnico (se relevante para a feature)
+Cobrir até estar claro:
+1. O que é o produto e qual problema resolve
+2. Quem são os usuários (tipos e permissões relevantes para a feature)
+3. Quais funcionalidades principais já existem (especialmente as que a nova feature vai tocar)
+4. Stack técnica atual (se relevante para a feature)
 
-Depois de cobrir o contexto:
+Seguir `core/interview-rules.md` normalmente: uma pergunta por vez, aprofundar até claro, não limitar por número de trocas.
+
+Depois de cobrir o contexto com clareza:
 ```
 Entendido. Agora me conta: que funcionalidade nova você quer adicionar?
 ```
@@ -142,24 +145,22 @@ Usar `templates/feature-template.md` como estrutura.
 
 ## Passo 5: Salvar o Feature Spec
 
-1. Verificar arquivos existentes em `.ai/product/features/` para definir o número sequencial
-2. Salvar como `.ai/product/features/NNN-nome-da-feature.md`
-   - Exemplo: `001-exportacao-relatorios.md`, `002-notificacoes-email.md`
+1. Criar `.ai/product/features/` se não existir
+2. Verificar arquivos existentes na pasta para definir o número sequencial (001, 002, 003...)
+3. Salvar como `.ai/product/features/NNN-nome-da-feature.md`
+   - Exemplos: `001-exportacao-relatorios.md`, `002-notificacoes-email.md`
 
 ---
 
 ## Passo 6: Atualizar prd.md (se existir)
 
-Se um `prd.md` existente foi lido no Passo 1:
+Se um `prd.md` foi lido no Passo 1:
 
-1. **Adicionar à seção "Escopo Funcional"** (Seção 5 do PRD):
+1. **Seção 5 — Escopo Funcional:** adicionar a feature na tabela com nota de referência:
    ```
-   | N | [Nome da Feature] | Must-have | [Motivação resumida] |
+   | N | [Nome da Feature] | Must-have | [Motivação resumida] — ver features/NNN-nome.md |
    ```
-   Com nota: `→ Spec completo em features/NNN-nome-da-feature.md`
-
-2. **Adicionar User Stories** à Seção 6 do PRD, no épico correspondente
-
+2. **Seção 6 — User Stories:** adicionar as user stories da feature no épico correspondente
 3. **Não modificar** nenhuma outra seção do prd.md
 
 > Se o prd.md não existir: não criar — apenas gerar o feature spec.
@@ -168,20 +169,27 @@ Se um `prd.md` existente foi lido no Passo 1:
 
 ## Passo 7: Confirmar e Indicar Próximo Passo
 
-```
-✅ Feature Spec salvo em .ai/product/features/NNN-nome-da-feature.md
-✅ prd.md atualizado (escopo + user stories)   [se aplicável]
+Exibir o fluxo completo para que o usuário saiba o que vem depois:
 
-Próximo passo:
-/sdd-builder design @.ai/product/prd.md @.ai/product/features/NNN-nome-da-feature.md
 ```
+✅ Feature Spec: .ai/product/features/NNN-nome.md
+✅ prd.md atualizado (escopo + user stories)    ← só se prd.md existe
 
-Se não há prd.md:
-```
-✅ Feature Spec salvo em .ai/product/features/NNN-nome-da-feature.md
+─────────────────────────────────────────────
+Próximos passos:
 
-Próximo passo:
-/sdd-builder design @.ai/product/features/NNN-nome-da-feature.md
+1. Gerar/atualizar o design técnico:
+   /sdd-builder design @.ai/product/prd.md @.ai/product/features/NNN-nome.md
+
+   O design.md existente será atualizado com os novos módulos,
+   entidades e endpoints desta feature (marcados como [NOVO]).
+
+2. Gerar as tasks de implementação:
+   /sdd-builder tasks @.ai/product/prd.md @.ai/product/design.md @.ai/product/features/NNN-nome.md
+
+   Novas tasks serão adicionadas em .ai/product/tasks/
+   com numeração sequencial a partir da última task existente.
+─────────────────────────────────────────────
 ```
 
 ---

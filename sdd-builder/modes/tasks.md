@@ -27,10 +27,18 @@ Se nenhum artefato de spec existir: interromper e orientar.
 
 ### Regras para Cenário B (feature incremental)
 
-- Gerar tasks **apenas para o delta da feature** — não regerar tasks do produto inteiro
-- Prefixar tasks com o número da feature: `NNN-001-nome.md` (ex: `002-001-setup-notificacoes.md`)
-- Se tasks anteriores precisam ser modificadas: criar uma task de refactor explícita, não editar silenciosamente
-- Referenciar explicitamente as tasks existentes que são pré-requisito
+As tasks de uma feature nova vão na **mesma pasta** `.ai/product/tasks/`, com numeração sequencial continuada.
+
+**O que fazer:**
+- Verificar a última task existente (ex: se existe `008-auth-ui.md`, começar do `009`)
+- Gerar tasks apenas para o delta desta feature — não regerar tasks do produto inteiro
+- Nas dependências de cada nova task, referenciar tasks anteriores relevantes pelo número
+- Adicionar comentário no topo de cada nova task: `<!-- Feature: NNN-nome-da-feature -->`
+
+**Se uma task existente precisar ser modificada pela feature:**
+- Não editar a task existente silenciosamente
+- Criar nova task de refactor explícita: ex: `009-refactor-user-model-notificacoes.md`
+- Descrever exatamente o que muda e por quê
 
 ---
 

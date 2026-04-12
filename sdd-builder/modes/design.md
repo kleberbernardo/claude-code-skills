@@ -41,11 +41,24 @@ Se nenhum dos dois existir: interromper e orientar a executar `spec` ou `feature
 
 ### Regras para Cenário B (feature incremental)
 
-- Ler o `design.md` existente antes de gerar — não conflitar com arquitetura estabelecida
-- Reutilizar módulos, entidades e padrões já definidos
-- Adicionar apenas o que é novo — não reescrever seções sem alteração
-- Marcar claramente o que é novo vs. extensão de existente: `[NOVO]` e `[ESTENDE: módulo X]`
-- Se houver conflito com arquitetura existente: registrar em "Itens em Aberto" e apresentar opções
+O `design.md` é a arquitetura viva do produto — não é criado um arquivo separado por feature.  
+Quando uma feature adiciona ou modifica algo na arquitetura, o `design.md` existente é **atualizado**.
+
+**O que fazer:**
+- Ler o `design.md` existente completo antes de qualquer alteração
+- Reutilizar módulos, entidades e padrões já definidos — não duplicar
+- Inserir adições cirurgicamente na seção correta (ex: nova entidade vai em Modelo de Dados, novo endpoint vai em Endpoints)
+- Marcar cada adição com `<!-- [NOVO - feature NNN] -->` em comentário inline
+- Marcar extensões de existentes com `<!-- [ESTENDE - feature NNN] -->`
+
+**O que não fazer:**
+- Não reescrever seções que não foram afetadas pela feature
+- Não remover conteúdo existente sem motivo explícito
+- Não criar um `design-feature-NNN.md` separado — tudo no `design.md` principal
+
+**Se houver conflito arquitetural:**
+- Registrar em "Itens em Aberto" com as duas opções e impacto de cada uma
+- Não tomar decisão unilateral em conflito com arquitetura estabelecida
 
 ---
 
